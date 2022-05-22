@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <div className="navbar max-w-[1350px] mx-auto">
       <div className="navbar-start">
         <div className="dropdown md:hidden">
           <label tabIndex="0" className="btn btn-ghost btn-circle">
@@ -43,7 +43,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <h1 className="text-2xl font-bold">Electric co.</h1>
+        <h1 className="text-2xl font-bold">Electric Manufacturer</h1>
       </div>
       <div className="navbar-end hidden md:block">
         <div className="flex justify-end">

@@ -1,0 +1,23 @@
+#app { height: 100% }
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+
+.swiper {
+
+  height: 500px;
+  margin: 20px auto 0;
+}
+
+/*1023*/
+
+@media screen and (max-width: 767px) {
+  .swiper{
+    height: 100%;
+  }
+}
+
+

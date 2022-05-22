@@ -203,46 +203,69 @@ const Register = () => {
                   </div>
                 </div>
               </form>
-              <div class="divider mt-[-15px] w-[95%] mx-auto">OR</div>
+              <div className="divider mt-[-15px] w-[95%] mx-auto">OR</div>
               <SocialLogin></SocialLogin>
             </div>
             <Link
               to="/login"
-              className="block md:pr-[100px] text-center md:text-right underline text-blue-700 mt-3"
+              className="block md:pr-[140px] text-center md:text-right underline text-blue-700 mt-3"
             >
               already have an account?
             </Link>
           </div>
         </div>
         <div className="flex-1 flex md:justify-start justify-center items-center">
-          <div className="max-w-sm ml-5">
+          <div className="max-w-md ml-5">
+            <h1 className="text-lg font-semibold mb-2 underline">
+              Password must meet the following requirements:
+            </h1>
             <p
-              className={`font-semibold ${isMinLength ? "text-green-600" : ""}`}
+              className={`font-semibold ${
+                isMinLength ? "text-green-600" : "text-red-600"
+              }`}
             >
               <span>{isMinLength ? "✔" : "❌"}</span> Password must be at least
-              six characters
+              six characters.
             </p>
             <p
-              className={`font-semibold ${isMaxLength ? "text-green-600" : ""}`}
+              className={`font-semibold ${
+                isMaxLength ? "text-green-600" : "text-red-600"
+              }`}
             >
               <span>{isMaxLength ? "✔" : "❌"}</span> Password can not be
-              greater than ten characters
+              greater than ten characters.
             </p>
-            <p className={`font-semibold ${isNumber ? "text-green-600" : ""}`}>
+            <p
+              className={`font-semibold ${
+                isNumber ? "text-green-600" : "text-red-600"
+              }`}
+            >
               <span>{isNumber ? "✔" : "❌"}</span> Password Contains at least
-              one number
+              one number.
             </p>
-            <p className={`font-semibold ${isSpecial ? "text-green-600" : ""}`}>
+            <p
+              className={`font-semibold ${
+                isSpecial ? "text-green-600" : "text-red-600"
+              }`}
+            >
               <span>{isSpecial ? "✔" : "❌"}</span> Password Contains at least
-              special chacarter
+              special chacarter.
             </p>
-            <p className={`font-semibold ${isUpper ? "text-green-600" : ""}`}>
+            <p
+              className={`font-semibold ${
+                isUpper ? "text-green-600" : "text-red-600"
+              }`}
+            >
               <span>{isUpper ? "✔" : "❌"}</span> Password Contains at least one
-              upper case letter
+              upper case letter.
             </p>
-            <p className={`font-semibold ${isLower ? "text-green-600" : ""}`}>
+            <p
+              className={`font-semibold ${
+                isLower ? "text-green-600" : "text-red-600"
+              }`}
+            >
               <span>{isLower ? "✔" : "❌"}</span> Password Contains at least one
-              lower case letter
+              lower case letter.
             </p>
           </div>
         </div>

@@ -10,7 +10,7 @@ import useToken from "../../hooks/useToken";
 import SocialLogin from "./SocialLogin";
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const emailRef = useRef();
   const [resetError, setResetError] = useState(false);
@@ -20,8 +20,8 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending, ResetError] =
     useSendPasswordResetEmail(auth);
-    const [token] = useToken(user?.user?.email);
-    const [isVisible, setIsVisible] = useState(false);
+  const [token] = useToken(user?.user?.email);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleForgotPassword = async () => {
     const email = emailRef.current.value;
@@ -32,7 +32,7 @@ const Login = () => {
   const onSubmit = (data) => {
     const email = emailRef.current.value;
     const password = data.password;
-    console.log(email,password)
+    console.log(email, password);
     signInWithEmailAndPassword(email, password);
   };
   useEffect(() => {
@@ -54,7 +54,6 @@ const Login = () => {
     <>
       <div className="flow-root my-10">
         <div className="card mx-auto flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-          
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="card-body">
               <div className="form-control">
@@ -80,16 +79,16 @@ const Login = () => {
                   type={isVisible ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered"
-                  {...register('password')}
+                  {...register("password")}
                   required
                 />
                 <p
-                      onClick={() => setIsVisible(!isVisible)}
-                      style={{ cursor: "pointer" }}
-                      className="absolute text-xl top-[60%] left-[90%]"
-                    >
-                      {isVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
-                    </p>
+                  onClick={() => setIsVisible(!isVisible)}
+                  style={{ cursor: "pointer" }}
+                  className="absolute text-xl top-[60%] left-[90%]"
+                >
+                  {isVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
+                </p>
               </div>
               <small className="text-red-700">
                 {error?.message?.includes("password") ? "*wrong password" : ""}
@@ -107,7 +106,7 @@ const Login = () => {
               </div>
             </div>
           </form>
-          <div class="divider mt-[-15px] w-[95%] mx-auto">OR</div>
+          <div className="divider mt-[-15px] w-[95%] mx-auto">OR</div>
           <SocialLogin></SocialLogin>
         </div>
         <Link
@@ -117,7 +116,6 @@ const Login = () => {
           create a new account...
         </Link>
       </div>
-
     </>
   );
 };
