@@ -21,7 +21,7 @@ function App() {
   },[])
 
   return (
-    <div className="border-2 border-red-700">
+    <div className="">
       <Navbar></Navbar>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>

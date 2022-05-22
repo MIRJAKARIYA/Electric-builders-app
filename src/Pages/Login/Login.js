@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase.init";
 import useToken from "../../hooks/useToken";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
@@ -19,6 +21,7 @@ const Login = () => {
   const [sendPasswordResetEmail, sending, ResetError] =
     useSendPasswordResetEmail(auth);
     const [token] = useToken(user?.user?.email);
+    const [isVisible, setIsVisible] = useState(false);
 
   const handleForgotPassword = async () => {
     const email = emailRef.current.value;
@@ -49,8 +52,8 @@ const Login = () => {
   }, [token, from, navigate]);
   return (
     <>
-      <div className="flow-root">
-        <div className="card mx-auto mt-36 flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="flow-root my-10">
+        <div className="card mx-auto flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
           
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="card-body">
@@ -69,17 +72,24 @@ const Login = () => {
               <small className="text-red-700">
                 {error?.message?.includes("not-found") ? "*user not found" : ""}
               </small>
-              <div className="form-control">
+              <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="password"
+                  type={isVisible ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered"
                   {...register('password')}
                   required
                 />
+                <p
+                      onClick={() => setIsVisible(!isVisible)}
+                      style={{ cursor: "pointer" }}
+                      className="absolute text-xl top-[60%] left-[90%]"
+                    >
+                      {isVisible ? <AiFillEye /> : <AiFillEyeInvisible />}
+                    </p>
               </div>
               <small className="text-red-700">
                 {error?.message?.includes("password") ? "*wrong password" : ""}
@@ -97,7 +107,8 @@ const Login = () => {
               </div>
             </div>
           </form>
-          {/* <SocialLogin></SocialLogin> */}
+          <div class="divider mt-[-15px] w-[95%] mx-auto">OR</div>
+          <SocialLogin></SocialLogin>
         </div>
         <Link
           to="/register"

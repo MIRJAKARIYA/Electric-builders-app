@@ -108,10 +108,10 @@ const Register = () => {
   };
   return (
     <>
-      <div className="flex">
+      <div className="flex flex-col md:flex-row my-10">
         <div className="flex-1">
           <div>
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 ml-auto">
+            <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100 mr-auto ml-auto md:mr-0 md:ml-auto">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="card-body">
                   <div className="form-control">
@@ -203,18 +203,18 @@ const Register = () => {
                   </div>
                 </div>
               </form>
-
+              <div class="divider mt-[-15px] w-[95%] mx-auto">OR</div>
               <SocialLogin></SocialLogin>
             </div>
             <Link
               to="/login"
-              className="block pr-[100px] text-right underline text-blue-700 mt-3"
+              className="block md:pr-[100px] text-center md:text-right underline text-blue-700 mt-3"
             >
               already have an account?
             </Link>
           </div>
         </div>
-        <div className="flex-1 flex items-center">
+        <div className="flex-1 flex md:justify-start justify-center items-center">
           <div className="max-w-sm ml-5">
             <p
               className={`font-semibold ${isMinLength ? "text-green-600" : ""}`}
