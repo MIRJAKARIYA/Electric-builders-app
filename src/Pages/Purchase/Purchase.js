@@ -34,6 +34,27 @@ const Purchase = () => {
 
   const handlePurchase = (e) => {
     e.preventDefault();
+    const quantity = e.target.quantity.value;
+    const purchaseData = {
+        product:tool.toolName,
+        quantity:quantity,
+        buyer: user.displayName,
+        buyerEamil: user.email,
+        status: 'unpaid'
+    }
+
+    fetch('http://localhost:5000/purchased',{
+        method: 'POST',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify(purchaseData)
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+
+
   };
 
   return (
@@ -89,6 +110,7 @@ const Purchase = () => {
                     min={0}
                       type="number"
                       placeholder="Type here"
+                      name='quantity'
                       onChange={handleQuantity}
                       value={minimuQuantity}
                       className="input input-bordered input-primary w-[290px]"
