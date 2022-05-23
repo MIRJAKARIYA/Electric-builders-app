@@ -9,7 +9,7 @@ const WhyChooseUs = () => {
     <>
     <h1 className="text-center text-2xl text-red-700 font-semibold mb-5 mt-10">Why Choose Us?</h1>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-w-[1200px] w-[95%] gap-5 mx-auto">
-        <div class="card glass p-5 choose-card">
+        <div class="card glass p-5 choose-card" data-aos="fade-up" data-aos-delay="" data-aos-duration="200" data-aos-easing="ease-in-out">
           <div class="avatar">
             <div class="w-[120px] p-1 mx-auto rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
               <img src={Cup} alt="" />
@@ -24,7 +24,7 @@ const WhyChooseUs = () => {
             </p>
           </div>
         </div>
-        <div class="card glass p-5 choose-card">
+        <div class="card glass p-5 choose-card" data-aos="fade-up" data-aos-delay="200" data-aos-duration="200" data-aos-easing="ease-in-out">
           <div class="avatar">
             <div class="w-[120px] p-1 mx-auto rounded-full ring ring-accent ring-offset-base-100 ring-offset-1">
               <img src={Delivery} alt="" />
@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
             </p>
           </div>
         </div>
-        <div class="card glass p-5 choose-card">
+        <div class="card glass p-5 choose-card" data-aos="fade-up" data-aos-delay="400" data-aos-duration="200" data-aos-easing="ease-in-out">
           <div class="avatar">
             <div class="w-[120px] p-1 mx-auto rounded-full ring ring-secondary ring-offset-base-100 ring-offset-1">
               <img src={CostSave} alt="" />
@@ -55,7 +55,7 @@ const WhyChooseUs = () => {
             </p>
           </div>
         </div>
-        <div class="card glass p-5 choose-card">
+        <div class="card glass p-5 choose-card" data-aos="fade-up" data-aos-delay="600" data-aos-duration="200" data-aos-easing="ease-in-out">
           <div class="avatar">
             <div class="w-[120px] p-1 mx-auto rounded-full ring ring-green-600 ring-offset-base-100 ring-offset-1">
               <img src={Team} alt="" />
