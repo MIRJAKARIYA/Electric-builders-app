@@ -8,7 +8,7 @@ import eTools from '../../images/business_summary/eTools.png';
 const BusinessSummary = () => {
   return (
     <>
-    <h1 className="text-center mt-10 mb-5 text-2xl text-red-700 font-semibold">Business Summary</h1>
+    <h1 className="text-center mt-5 mb-5 text-2xl text-red-700 font-semibold">Business Summary</h1>
         <div className="max-w-[1200px] mx-auto bg-slate-600 text-white rounded-lg w-[88%] mb-5" data-aos="flip-up">
       <div className="p-3 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-2">
         <div class="stat rounded-lg border-2 border-yellow-500">
