@@ -23,38 +23,40 @@ const Purchase = () => {
 
   const handleQuantity = (e) => {
     setMinimumQuantity(e.target.value);
-    setPurchaseError('')
-    if(e.target.value > tool.availableQuantity){
-        setPurchaseError(`**Order quantity can't not be greater than ${tool.availableQuantity}`)
-    }
-    else if(e.target.value < tool.minimumOrderQuantity){
-        setPurchaseError(`**Order quantity can't be less than ${tool.minimumOrderQuantity}`)
+    setPurchaseError("");
+    if (e.target.value > tool.availableQuantity) {
+      setPurchaseError(
+        `**Order quantity can't not be greater than ${tool.availableQuantity}`
+      );
+    } else if (e.target.value < tool.minimumOrderQuantity) {
+      setPurchaseError(
+        `**Order quantity can't be less than ${tool.minimumOrderQuantity}`
+      );
     }
   };
 
   const handlePurchase = (e) => {
     e.preventDefault();
     const quantity = e.target.quantity.value;
+    const phone = e.target.phone.value;
     const purchaseData = {
-        product:tool.toolName,
-        quantity:quantity,
-        buyer: user.displayName,
-        buyerEamil: user.email,
-        status: 'unpaid'
-    }
+      product: tool.toolName,
+      quantity: quantity,
+      buyer: user.displayName,
+      buyerEamil: user.email,
+      phone: phone,
+      status: "unpaid",
+    };
 
-    fetch('http://localhost:5000/purchased',{
-        method: 'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body:JSON.stringify(purchaseData)
+    fetch("http://localhost:5000/purchased", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(purchaseData),
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-
-
-
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   return (
@@ -62,15 +64,15 @@ const Purchase = () => {
       <h1 className="text-center text-red-700 font-semibold text-5xl mt-10 mb-5">
         Purchase the tool
       </h1>
-      <div className="grid grid-cols-2 w-[95%] shadow-xl bg-base-300 max-w-[1400px] p-3 rounded-xl mx-auto">
-        <div className="h-[500px] w-full pr-5">
+      <div className="grid md:grid-cols-2 w-[95%]  shadow-xl bg-base-300 max-w-[1400px] p-3 rounded-xl mx-auto">
+        <div className="h-[600px] w-full md:pr-5">
           <img
             src={tool.img}
             className="h-full w-full object-cover rounded-xl"
             alt=""
           />
         </div>
-        <div className="h-[500px] items-center w-full">
+        <div className="h-[600px] items-center w-full">
           <h1 className="text-4xl text-blue-700 font-semibold">
             {tool.toolName}
           </h1>
@@ -94,36 +96,71 @@ const Purchase = () => {
             ${tool.price}
           </p>
           <div>
-            <div className="mt-4">
-              <h1 className="mt-2 text-2xl text-green-700 text-semibold underline">
-                Buyer Info.
-              </h1>
-              <p><span className="text-orange-900 font-semibold underline text-lg">Name:</span> {user.displayName}</p>
-              <p><span className="text-orange-900 font-semibold underline text-lg">Email:</span> {user.email}</p>
-            </div>
+            <h1 className="mt-2 text-2xl text-green-700 text-semibold text-center underline">
+              Place order
+            </h1>
             <div className="mt-4">
               <form onSubmit={handlePurchase}>
-                <p className="font-semibold">Enter quantity:</p>
-                <div className="flex items-center w-full">
-                  <div>
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <span className="text-sm">Buyer Name:</span>
                     <input
-                    min={0}
-                      type="number"
+                      type="text"
+                      value={user.displayName}
+                      placeholder=""
+                      disabled={true}
+                      className="input input-bordered input-primary w-full max-w-xs"
+                      required
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm">Buyer Email:</span>
+                    <input
+                      type="email"
+                      value={user.email}
+                      disabled={true}
                       placeholder="Type here"
-                      name='quantity'
+                      className="input input-bordered input-primary w-full max-w-xs"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <span className="text-sm">Phone Number:</span>
+                    <input
+                      type="number"
+                      name="phone"
+                      placeholder="Your phone number"
+                      className="input input-bordered input-primary w-full max-w-xs"
+                      required
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-sm">Enter quantity:</span>
+
+                    <input
+                      min={0}
+                      type="number"
+                      placeholder=""
+                      name="quantity"
                       onChange={handleQuantity}
                       value={minimuQuantity}
-                      className="input input-bordered input-primary w-[290px]"
+                      className="input input-bordered input-primary w-full max-w-xs"
                     />
-                    <p></p>
+
+                    <small className="text-red-600 font-semibold">
+                      {purchaseError}
+                    </small>
                   </div>
-                  
-                  <button className="btn btn-primary ml-2" disabled={purchaseError?true:false} type="submit">
-                    Buy Now
-                  </button>
-                  
                 </div>
-                <small className="ml-2 text-red-600 font-semibold">{purchaseError}</small>
+                <button
+                  type="submit"
+                  disabled={purchaseError ? true : false}
+                  className="btn btn-primary block w-[50%] mx-auto mt-4"
+                >
+                  Purchase
+                </button>
               </form>
             </div>
           </div>
