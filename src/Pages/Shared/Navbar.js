@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { BsReverseLayoutSidebarInsetReverse } from 'react-icons/bs';
 
 const Navbar = () => {
+  const location = useLocation();
   return (
     <div className="navbar max-w-[1350px] mx-auto">
       <div className="navbar-start">
@@ -39,6 +41,9 @@ const Navbar = () => {
               <Link to="/myportfolio">My Portfolio</Link>
             </li>
             <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
               <Link to="/login">Login</Link>
             </li>
           </ul>
@@ -47,20 +52,32 @@ const Navbar = () => {
       </div>
       <div className="navbar-end hidden md:block">
         <div className="flex justify-end">
-          <Link className="mr-6 text-lg" to="/home">
+          <Link className="mr-6" to="/home">
             Home
           </Link>
-          <Link className="mr-6 text-lg" to="/blogs">
+          <Link className="mr-6" to="/blogs">
             Blogs
           </Link>
-          <Link className="mr-6 text-lg" to="/myportfolio">
+          <Link className="mr-6" to="/myportfolio">
             My Portfolio
           </Link>
-          <Link className="mr-6 text-lg" to="/login">
+          <Link className="mr-6" to="/dashboard">
+            Dashboard
+          </Link>
+          <Link className="mr-6" to="/login">
             Login
           </Link>
         </div>
       </div>
+      {
+        location.pathname.includes('dashboard') && <label
+        htmlFor="my-drawer-dashboard"
+        class=" lg:hidden ml-auto mr-4 text-xl"
+        style={{cursor:'pointer'}}
+      >
+        <BsReverseLayoutSidebarInsetReverse />
+      </label>
+      }
     </div>
   );
 };

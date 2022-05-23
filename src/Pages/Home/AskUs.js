@@ -7,8 +7,8 @@ const AskUs = () => {
       <h1 className="text-center text-red-700 font-semibold text-2xl mt-10 mb-5">
         Ask us anything about our website
       </h1>
-      <div className="grid grid-cols-2 w-[95%] max-w-[1200px] mx-auto">
-        <div className="h-[400px] w-full pr-5" data-aos="zoom-in">
+      <div className="grid md:grid-cols-2 w-[95%] max-w-[1200px] mx-auto">
+        <div className="h-[400px] w-full md:pr-5" data-aos="zoom-in">
           <img
             src={Question}
             className="h-full w-full object-cover rounded-xl"
@@ -25,7 +25,7 @@ const AskUs = () => {
                 <span className="text-sm">Your Name:</span>
                 <input
                   type="text"
-                  placeholder="Type here"
+                  placeholder="Enter your name"
                   className="input input-bordered input-primary w-full max-w-xs"
                   required
                 />
@@ -33,8 +33,8 @@ const AskUs = () => {
               <div className="flex-1">
                 <span className="text-sm">Your Email:</span>
                 <input
-                  type="text"
-                  placeholder="Type here"
+                  type="email"
+                  placeholder="Enter your email"
                   className="input input-bordered input-primary w-full max-w-xs"
                   required
                 />
@@ -44,8 +44,8 @@ const AskUs = () => {
               <div className="flex-1">
                 <span className="text-sm">Phone Number:</span>
                 <input
-                  type="text"
-                  placeholder="Type here"
+                  type="number"
+                  placeholder="Enter your phone number"
                   className="input input-bordered input-primary w-full max-w-xs"
                   required
                 />
@@ -68,7 +68,7 @@ const AskUs = () => {
               <p className="text-sm">Your Query</p>
               <textarea
                 className="textarea textarea-primary w-full"
-                placeholder="Bio"
+                placeholder="Enter your query"
               ></textarea>
             </div>
             <button

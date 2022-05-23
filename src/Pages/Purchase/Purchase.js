@@ -103,7 +103,7 @@ const Purchase = () => {
               <form onSubmit={handlePurchase}>
                 <div className="flex gap-2">
                   <div className="flex-1">
-                    <span className="text-sm">Buyer Name:</span>
+                    <span className="text-sm font-semibold ml-1">Buyer Name:</span>
                     <input
                       type="text"
                       value={user.displayName}
@@ -114,7 +114,7 @@ const Purchase = () => {
                     />
                   </div>
                   <div className="flex-1">
-                    <span className="text-sm">Buyer Email:</span>
+                    <span className="text-sm font-semibold ml-1">Buyer Email:</span>
                     <input
                       type="email"
                       value={user.email}
@@ -126,8 +126,8 @@ const Purchase = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <div className="flex-1">
-                    <span className="text-sm">Phone Number:</span>
+                  <div className="flex-1 mt-2">
+                    <span className="text-sm font-semibold ml-1">Phone Number:</span>
                     <input
                       type="number"
                       name="phone"
@@ -136,8 +136,8 @@ const Purchase = () => {
                       required
                     />
                   </div>
-                  <div className="flex-1">
-                    <span className="text-sm">Enter quantity:</span>
+                  <div className="flex-1 mt-2">
+                    <span className="text-sm font-semibold ml-1">Enter quantity:</span>
 
                     <input
                       min={0}
