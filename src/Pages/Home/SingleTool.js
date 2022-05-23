@@ -37,7 +37,7 @@ const SingleTool = ({ tool }) => {
         <div className="">
           <h2 className="card-title">{toolName}</h2>
           <p>{showMore ? description : description.slice(0, 90)+'...'}</p>
-          <button className="block text-sm ml-auto text-yellow-500" onClick={() => setShowMore(!showMore)}>{showMore?'Show less':'Show more'}</button>
+          <button className="block text-sm ml-auto text-yellow-500" onClick={() => setShowMore(!showMore)}>{showMore?'show less':'show more'}</button>
 
           <p><span className="text-orange-600 font-semibold">Minimum oreder quantity:</span> {minimumOrderQuantity}</p>
           <p><span className="text-orange-600 font-semibold">Available quantity:</span> {availableQuantity}</p>

@@ -6,7 +6,7 @@ import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/
 const Tools = () => {
     const [sliceCount, setSliceCount] = useState(6);
     const handleShowMore = () =>{
-        setSliceCount(10)
+        setSliceCount(12)
     }
     const handleShowLess = () =>{
         setSliceCount(6)
