@@ -11,6 +11,7 @@ import MyPortfolio from './Pages/MyPortfolio/MyPortfolio';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Login/Register';
 import NotFound from './Pages/NotFound/NotFound';
+import Purchase from './Pages/Purchase/Purchase';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='/myportfolio' element={<MyPortfolio></MyPortfolio>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
+        <Route path='/purchase/:toolId' element={<Purchase></Purchase>}></Route>
         <Route path='*' element={<NotFound></NotFound>} ></Route>
       </Routes>
       <ToastContainer></ToastContainer>

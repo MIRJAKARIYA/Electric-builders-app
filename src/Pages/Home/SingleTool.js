@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SingleTool = ({ tool }) => {
   const [showMore, setShowMore] = useState(false);
@@ -11,6 +12,13 @@ const SingleTool = ({ tool }) => {
     toolName,
     _id,
   } = tool;
+
+  const navigate = useNavigate()
+
+  const handlePlaceOrder = (id) =>{
+    navigate(`/purchase/${id}`)
+  }
+
   return (
     <div>
       <div
@@ -28,10 +36,14 @@ const SingleTool = ({ tool }) => {
         </figure>
         <div className="">
           <h2 className="card-title">{toolName}</h2>
-          <p>{showMore ? description : description.slice(0, 100)}</p>
-          <button onClick={() => setShowMore(!showMore)}>{showMore?'Show less':'Show more'}</button>
+          <p>{showMore ? description : description.slice(0, 90)+'...'}</p>
+          <button className="block text-sm ml-auto text-yellow-500" onClick={() => setShowMore(!showMore)}>{showMore?'Show less':'Show more'}</button>
+
+          <p><span className="text-orange-600 font-semibold">Minimum oreder quantity:</span> {minimumOrderQuantity}</p>
+          <p><span className="text-orange-600 font-semibold">Available quantity:</span> {availableQuantity}</p>
+          <p><span className="text-orange-600 font-semibold">Price/unit:</span> ${price}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-warning">Place oreder</button>
+            <button onClick={()=>handlePlaceOrder(_id)} className="btn btn-warning">Place oreder</button>
           </div>
         </div>
       </div>

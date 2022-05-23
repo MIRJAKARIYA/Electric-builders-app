@@ -22,7 +22,7 @@ const Tools = () => {
 
 
   return (
-   <div className="max-w-[1200px] mx-auto mt-10">
+   <div className="max-w-[1200px] mx-auto mt-10 w-[95%]">
        <h1 className="text-center mb-5 text-2xl font-semibold text-red-700">Tools</h1>
         <div className="grid mb-2 sm:grid-cols-2 md:grid-cols-3 justify-items-center gap-5">
         {
