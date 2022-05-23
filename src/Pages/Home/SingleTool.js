@@ -30,7 +30,7 @@ const SingleTool = ({ tool }) => {
         <figure>
           <img
             src={img}
-            alt="Shoes"
+            alt=""
             className="w-full h-[250px] object-cover rounded-xl"
           />
         </figure>
