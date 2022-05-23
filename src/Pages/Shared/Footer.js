@@ -2,39 +2,41 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer class="footer p-10 bg-slate-600 text-white mt-10">
+    <footer className="footer p-10 bg-slate-600 text-white mt-10">
       <div>
-        <span class="footer-title">Services</span>
-        <span class="link link-hover">Manufacturing electrical tools</span>
-        <span class="link link-hover">Selling electrical tools</span>
-        <span class="link link-hover">Stocking electrical tools</span>
-        <span class="link link-hover"></span>
+        <span className="footer-title">Services</span>
+        <span className="link link-hover">Manufacturing electrical tools</span>
+        <span className="link link-hover">Selling electrical tools</span>
+        <span className="link link-hover">Stocking electrical tools</span>
+        <span className="link link-hover"></span>
       </div>
       <div>
-        <span class="footer-title">Company</span>
-        <span class="link link-hover">About us</span>
-        <span class="link link-hover">Contact</span>
-        <span class="link link-hover">Jobs</span>
+        <span className="footer-title">Company</span>
+        <span className="link link-hover">About us</span>
+        <span className="link link-hover">Contact</span>
+        <span className="link link-hover">Jobs</span>
       </div>
       <div>
-        <span class="footer-title">Legal</span>
-        <span class="link link-hover">Terms of use</span>
-        <span class="link link-hover">Privacy policy</span>
-        <span class="link link-hover">Cookie policy</span>
+        <span className="footer-title">Legal</span>
+        <span className="link link-hover">Terms of use</span>
+        <span className="link link-hover">Privacy policy</span>
+        <span className="link link-hover">Cookie policy</span>
       </div>
       <div>
-        <span class="footer-title">Newsletter</span>
-        <div class="form-control w-80">
-          <label class="label">
-            <span class="label-text text-white">Enter your email address</span>
+        <span className="footer-title">Newsletter</span>
+        <div className="form-control w-80">
+          <label className="label">
+            <span className="label-text text-white">
+              Enter your email address
+            </span>
           </label>
-          <div class="relative">
+          <div className="relative">
             <input
               type="text"
               placeholder="username@site.com"
-              class="input input-bordered w-full pr-16 text-black"
+              className="input input-bordered w-full pr-16 text-black"
             />
-            <button class="btn btn-warning absolute top-0 right-0 rounded-l-none">
+            <button className="btn btn-warning absolute top-0 right-0 rounded-l-none">
               Subscribe
             </button>
           </div>
