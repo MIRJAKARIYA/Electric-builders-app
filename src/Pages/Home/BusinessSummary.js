@@ -2,6 +2,8 @@ import React from "react";
 import CountUp from "react-countup";
 import customers from '../../images/business_summary/customers.png';
 import revenue from '../../images/business_summary/revenue.png';
+import reviews from '../../images/business_summary/reviews.png';
+import eTools from '../../images/business_summary/eTools.png';
 
 const BusinessSummary = () => {
   return (
@@ -37,49 +39,37 @@ const BusinessSummary = () => {
               duration={10}
             /><span>M+</span>
           </div>
-          <div class="stat-desc">21% more than last month</div>
+          <div class="stat-desc">30% more than last year</div>
         </div>
         <div class="stat rounded-lg border-2 border-accent">
           <div class="stat-figure text-secondary">
-            <img src={revenue} alt="" />
+            <img src={reviews} className='w-[70px]' alt="" />
           </div>
           <div class="stat-title">Reviews</div>
           <div class="stat-value text-accent">
             <CountUp
               className="account-balance"
               start={0}
-              end={30}
-              duration={2.75}
+              end={60}
+              duration={10}
             />K+
           </div>
-          <div class="stat-desc">21% more than last month</div>
+          <div class="stat-desc">50% more than last month</div>
         </div>
         <div class="stat rounded-lg border-2 border-red-500">
           <div class="stat-figure text-secondary">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              class="inline-block w-8 h-8 stroke-current"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
-            </svg>
+          <img src={eTools} className='w-[50px]' alt="" />
           </div>
           <div class="stat-title">Tools</div>
           <div class="stat-value text-rose-500">
             <CountUp
               className="account-balance"
               start={0}
-              end={200}
-              duration={2.75}
+              end={33}
+              duration={10}
             />K+
           </div>
-          <div class="stat-desc">21% more than last month</div>
+          <div class="stat-desc">5% more tools than last month</div>
         </div>
       </div>
     </div>
