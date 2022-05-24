@@ -27,7 +27,7 @@ const SingleOrder = ({ order, setModalData }) => {
               Pay Order
             </button>
             <label
-              for="my-modal-6"
+              htmlFor="my-modal-cancel"
               className="btn btn-error flex-1"
               onClick={() => setModalData(_id)}
             >

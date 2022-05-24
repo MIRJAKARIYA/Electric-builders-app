@@ -13,9 +13,7 @@ const Payment = () => {
         .then((data) => setProduct(data));
     }, [productId]);
 
-    const stripePromise = loadStripe(
-        "pk_test_51L0YXaEgVD8phfXM8dDakoBtn1Khl0MXIGTMgEmOmLbjQEkziGw7qDNQdemfQxRhX1f4p7SrfRamvLAw5vrCLvH500J9J8y4ji"
-      );
+    const stripePromise = loadStripe("pk_test_51L0YXaEgVD8phfXM8dDakoBtn1Khl0MXIGTMgEmOmLbjQEkziGw7qDNQdemfQxRhX1f4p7SrfRamvLAw5vrCLvH500J9J8y4ji");
 
     return (
         <div>

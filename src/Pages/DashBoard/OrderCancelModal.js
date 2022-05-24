@@ -31,7 +31,7 @@ const OrderCancelModal = ({ modalData, setModalData, setReload, reload }) => {
 
   return (
     <>
-      <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+      <input type="checkbox" id="my-modal-cancel" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <div className="text-9xl flex justify-center text-red-700">
@@ -57,7 +57,7 @@ const OrderCancelModal = ({ modalData, setModalData, setReload, reload }) => {
             >
               YES CANCEL
             </button>
-            <label for="my-modal-6" className="btn btn-primary flex-1">
+            <label htmlFor="my-modal-cancel" className="btn btn-primary flex-1">
               Don't cancel
             </label>
           </div>
