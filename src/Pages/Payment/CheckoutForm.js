@@ -12,7 +12,7 @@ const CheckoutForm = ({product}) => {
   const {price,buyer,_id} = product;
 
   useEffect(()=>{
-    fetch('',{
+    fetch('http://localhost:5000/create-payment-intent',{
         method:'POST',
         headers:{
             'content-type':'application/json',

@@ -17,6 +17,7 @@ import DashBoard from "./Pages/DashBoard/DashBoard";
 import MyOrders from "./Pages/DashBoard/MyOrders";
 import AddReview from "./Pages/DashBoard/AddReview";
 import MyProfile from "./Pages/DashBoard/MyProfile";
+import Payment from './Pages/Payment/Payment';
 
 function App() {
   useEffect(() => {
@@ -46,10 +47,11 @@ function App() {
         ></Route>
 
         <Route path="/dashboard" element={<DashBoard></DashBoard>}>
-            <Route path="myorders" element={<MyOrders></MyOrders>}></Route>
+            <Route index element={<MyOrders></MyOrders>}></Route>
             <Route path="addareview" element={<AddReview></AddReview>}></Route>
             <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
         </Route>
+        <Route path="/payment/:productId" element={<Payment></Payment>}></Route>
 
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>

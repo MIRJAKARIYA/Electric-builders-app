@@ -12,11 +12,11 @@ const DashBoard = () => {
             <Outlet></Outlet>
         </div>
         <div class="drawer-side">
-          <label for="my-drawer-2" class="drawer-overlay"></label>
-          <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+          <label htmlFor="my-drawer-dashboard" class="drawer-overlay"></label>
+          <ul class="menu p-4 overflow-y-auto w-80 bg-base-300 text-base-content">
             {/* Sidebar content here  */}
             <li>
-              <Link to='myorders'>My Orders</Link>
+              <Link to='/dashboard'>My Orders</Link>
             </li>
             <li>
               <Link to='addareview'>Add A Review</Link>

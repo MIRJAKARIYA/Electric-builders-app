@@ -8,7 +8,7 @@ const Payment = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
     useEffect(() => {
-      fetch(`http://localhost:5000/product/${productId}`)
+      fetch(`http://localhost:5000/purchasedSingle/${productId}`)
         .then((res) => res.json())
         .then((data) => setProduct(data));
     }, [productId]);

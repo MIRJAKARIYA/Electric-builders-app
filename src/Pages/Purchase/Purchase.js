@@ -9,6 +9,7 @@ const Purchase = () => {
   const [user] = useAuthState(auth);
   const [purchaseError, setPurchaseError] = useState("");
   const [minimuQuantity, setMinimumQuantity] = useState(0);
+  
   useEffect(() => {
     fetch(`http://localhost:5000/getTool/${toolId}`)
       .then((res) => res.json())
@@ -38,13 +39,17 @@ const Purchase = () => {
   const handlePurchase = (e) => {
     e.preventDefault();
     const quantity = e.target.quantity.value;
+    const price = parseInt(quantity) * parseInt(tool.price)
     const phone = e.target.phone.value;
     const purchaseData = {
       product: tool.toolName,
       quantity: quantity,
+      price: price,
+      img:tool.img,
       buyer: user.displayName,
       buyerEamil: user.email,
       phone: phone,
+      purchaseDate: new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) ,
       status: "unpaid",
     };
 
