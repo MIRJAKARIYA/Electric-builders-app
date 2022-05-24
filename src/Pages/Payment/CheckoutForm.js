@@ -77,7 +77,7 @@ const CheckoutForm = ({product}) => {
           const payment ={
             transactionId:paymentIntent.id
           }
-          fetch(`/${_id}`,{
+          fetch(`http://localhost:5000/purchasedSingle/${_id}`,{
             method:'PATCH',
             headers:{
               'content-type':'application/json'
