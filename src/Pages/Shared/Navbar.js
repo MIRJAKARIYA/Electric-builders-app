@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BsReverseLayoutSidebarInsetReverse } from 'react-icons/bs';
+import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
 
 const Navbar = () => {
   const location = useLocation();
@@ -69,15 +69,15 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      {
-        location.pathname.includes('dashboard') && <label
-        htmlFor="my-drawer-dashboard"
-        class=" lg:hidden ml-auto mr-4 text-xl"
-        style={{cursor:'pointer'}}
-      >
-        <BsReverseLayoutSidebarInsetReverse />
-      </label>
-      }
+      {location.pathname.includes("dashboard") && (
+        <label
+          htmlFor="my-drawer-dashboard"
+          className=" lg:hidden ml-auto mr-4 text-xl"
+          style={{ cursor: "pointer" }}
+        >
+          <BsReverseLayoutSidebarInsetReverse />
+        </label>
+      )}
     </div>
   );
 };

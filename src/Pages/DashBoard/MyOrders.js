@@ -10,7 +10,6 @@ const MyOrders = () => {
     const [reload, setReload] = useState(false);
     const query = `buyerEamil=${user?.email}`;
     const orders = useOrders(query,reload);
-    console.log(orders)
     const [modalData, setModalData] = useState('')
     return (
         <div className='max-w-[1200px] mr-auto lg:mr-0 ml-auto w-[95%] px-5 mt-5'>
@@ -24,7 +23,9 @@ const MyOrders = () => {
                 }
             </div>
             
-                 <OrderCancelModal modalData={modalData} setModalData={setModalData} setReload={setReload}></OrderCancelModal>
+                 {
+                     modalData && <OrderCancelModal modalData={modalData} setModalData={setModalData} reload={reload} setReload={setReload}></OrderCancelModal>
+                 }
             
         </div>
     );

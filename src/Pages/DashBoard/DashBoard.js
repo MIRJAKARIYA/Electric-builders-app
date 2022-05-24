@@ -1,28 +1,34 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
-
 const DashBoard = () => {
   return (
     <>
-      <div class="drawer drawer-end drawer-mobile">
-        <input id="my-drawer-dashboard" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
+      <div className="drawer drawer-end drawer-mobile">
+        <input
+          id="my-drawer-dashboard"
+          type="checkbox"
+          className="drawer-toggle"
+        />
+        <div className="drawer-content">
           {/* Page content here  */}
-            <Outlet></Outlet>
+          <Outlet></Outlet>
         </div>
-        <div class="drawer-side">
-          <label htmlFor="my-drawer-dashboard" class="drawer-overlay"></label>
-          <ul class="menu p-4 overflow-y-auto w-80 bg-base-300 text-base-content">
+        <div className="drawer-side">
+          <label
+            htmlFor="my-drawer-dashboard"
+            className="drawer-overlay"
+          ></label>
+          <ul className="menu p-4 overflow-y-auto w-80 bg-base-300 text-base-content">
             {/* Sidebar content here  */}
             <li>
-              <Link to='/dashboard'>My Orders</Link>
+              <Link to="/dashboard">My Orders</Link>
             </li>
             <li>
-              <Link to='addareview'>Add A Review</Link>
+              <Link to="addareview">Add A Review</Link>
             </li>
             <li>
-              <Link to='myprofile'>My Profile</Link>
+              <Link to="myprofile">My Profile</Link>
             </li>
           </ul>
         </div>
