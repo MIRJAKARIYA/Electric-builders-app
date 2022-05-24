@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const SingleOrder = ({ order, setModalData }) => {
-  const { quantity, product, status, img, price, purchaseDate, _id } = order;
+  const { quantity, product, status, img, price, purchaseDate, _id,transactionId,delivery } = order;
   const navigate = useNavigate();
 
   return (
@@ -11,13 +11,13 @@ const SingleOrder = ({ order, setModalData }) => {
         <img src={img} className="w-full h-full rounded-xl" alt="" />
       </div>
       <div className="p-4">
-        <h2 className="text-2xl">
+        <h2 className="text-2xl text-pink-400">
           {product}
           <div className="badge badge-warning ml-3">{status}</div>
         </h2>
-        <p>Purchase Date: {purchaseDate}</p>
-        <p>Quantity: {quantity}</p>
-        <p>Price: {price}</p>
+        <p><span className="font-semibold">Purchase Date:</span> {purchaseDate}</p>
+        <p><span className="font-semibold">Quantity:</span> {quantity}</p>
+        <p><span className="font-semibold">Price:</span> ${price}</p>
         {status === "unpaid" ? (
           <div className="flex justify-center mt-4 gap-4">
             <button
@@ -35,7 +35,11 @@ const SingleOrder = ({ order, setModalData }) => {
             </label>
           </div>
         ) : (
-          ""
+          <div>
+            <p className="text-center mb-1 text-xl font-semibold text-accent">payment done!!!</p>
+            <p><span className="font-semibold">TransactionId:</span> <span className="bg-warning text-sm text-black px-1 rounded-md">{transactionId}</span></p>
+            <p><span className="font-semibold">Delivery:</span> <span className="bg-warning text-sm text-black px-1 rounded-md">{delivery}</span></p>
+          </div>
         )}
       </div>
     </div>

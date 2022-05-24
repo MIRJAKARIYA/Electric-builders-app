@@ -75,7 +75,8 @@ const CheckoutForm = ({product}) => {
 
           //update data in backend
           const payment ={
-            transactionId:paymentIntent.id
+            transactionId:paymentIntent.id,
+            delivery:'pending'
           }
           fetch(`http://localhost:5000/purchasedSingle/${_id}`,{
             method:'PATCH',
@@ -88,7 +89,7 @@ const CheckoutForm = ({product}) => {
           .then(res=>res.json())
           .then(data=>{
             setProccessing(false);
-            console.log(data)
+
           })
 
       }
