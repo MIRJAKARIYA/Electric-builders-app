@@ -11,7 +11,6 @@ const DashBoard = () => {
           className="drawer-toggle"
         />
         <div className="drawer-content">
-          {/* Page content here  */}
           <Outlet></Outlet>
         </div>
         <div className="drawer-side">
@@ -20,7 +19,6 @@ const DashBoard = () => {
             className="drawer-overlay"
           ></label>
           <ul className="menu p-4 overflow-y-auto w-80 bg-base-300 text-base-content">
-            {/* Sidebar content here  */}
             <li>
               <Link to="/dashboard">My Orders</Link>
             </li>

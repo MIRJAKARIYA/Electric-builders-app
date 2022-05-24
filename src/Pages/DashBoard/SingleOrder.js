@@ -11,7 +11,7 @@ const SingleOrder = ({ order, setModalData }) => {
         <img src={img} className="w-full h-full rounded-xl" alt="" />
       </div>
       <div className="p-4">
-        <h2 className="text-2xl text-pink-400">
+        <h2 className="text-2xl text-pink-500 font-semibold">
           {product}
           <div className="badge badge-warning ml-3">{status}</div>
         </h2>
