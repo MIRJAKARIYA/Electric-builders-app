@@ -11,11 +11,14 @@ const MyOrders = () => {
     const orders = useOrders(query,reload);
     console.log(orders)
     return (
-        <div className='border-2 border-red-200 max-w-[1200px] mr-auto lg:mr-0 ml-auto w-[95%] px-5'>
-            <h1>This is my orders</h1>
-            <div className='grid grid-cols-3 gap-5'>
+        <div className='max-w-[1200px] mr-auto lg:mr-0 ml-auto w-[95%] px-5 mt-5'>
+            <h1 className='text-center text-3xl font-bold text-red-700 mb-5'>Your Orders</h1>
+            <div className={`${orders.length <2 ? 'flex justify-center':orders.length <3?'flex md:flex-row flex-col justify-center':'grid lg:grid-cols-3 md:grid-cols-2'} gap-5`}>
                 {
-                    orders.map(order => <SingleOrder key={order._id} order={order}></SingleOrder>)
+                    orders.length>0 ? 
+                        orders.map(order => <SingleOrder key={order._id} order={order}></SingleOrder>)
+                    :
+                    <h1 className='text-xl font-semibold mt-10'>You didn't order anything yet🙂</h1>
                 }
             </div>
         </div>

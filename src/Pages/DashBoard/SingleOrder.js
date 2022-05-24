@@ -5,7 +5,7 @@ const SingleOrder = ({ order }) => {
   const { quantity, product, status, img, price, purchaseDate, _id } = order;
   const navigate = useNavigate();
   return (
-    <div class="card shadow-xl bg-slate-600 text-white pt-2 px-2">
+    <div class="card shadow-xl bg-slate-600 text-white pt-2 px-2 w-full max-w-[370px] mx-auto md:mx-0">
       <div className="h-[250px]">
         <img src={img} className="w-full h-full rounded-xl" alt="" />
       </div>
@@ -18,9 +18,9 @@ const SingleOrder = ({ order }) => {
         <p>Quantity: {quantity}</p>
         <p>Price: {price}</p>
         {
-            status === 'unpaid'?<div className="flex justify-center mt-4">
-            <button className="btn btn-accent px-7" onClick={()=>navigate(`/payment/${_id}`)}>Pay Order</button>
-            <button className="btn btn-warning ml-2">Cancel Order</button>
+            status === 'unpaid'?<div className="flex justify-center mt-4 gap-4">
+            <button className="btn btn-warning flex-1" onClick={()=>navigate(`/payment/${_id}`)}>Pay Order</button>
+            <button className="btn btn-error flex-1">Cancel Order</button>
         </div>:''
         }
       </div>
