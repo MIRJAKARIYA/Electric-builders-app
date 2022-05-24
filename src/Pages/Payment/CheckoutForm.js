@@ -9,7 +9,7 @@ const CheckoutForm = ({product}) => {
   const [success, setSuccess] = useState('');
   const [proccessing, setProccessing] = useState(false)
   const [transactionId, setTransactionId] = useState('')
-  const {price,buyer,_id} = product;
+  const {price,buyer,_id,status} = product;
 
   useEffect(()=>{
     fetch('http://localhost:5000/create-payment-intent',{
@@ -116,7 +116,7 @@ const CheckoutForm = ({product}) => {
         <button
           type="submit"
           className="btn btn-success btn-sm mt-4"
-          disabled={!stripe || !clientSecret || success}
+          disabled={!stripe || !clientSecret || success || status === 'paid'}
         >
           Pay
         </button>
@@ -125,12 +125,23 @@ const CheckoutForm = ({product}) => {
           cardError && <p className="text-red-500">{cardError}</p>
       }
       {
+        proccessing && <p>loading...</p>
+      }
+      {
           success && <div>
 
             <p className="text-green-500">{success}</p>
+            
             <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span></p>
           </div>
       }
+      {
+              product.transactionId && <div>
+                <p className="text-green-500">Your payment is completed.</p>
+                <p>Your transaction Id: <span className="text-orange-500 font-bold">{product.transactionId}</span></p>
+              </div>
+
+            }
     </>
   );
 };
