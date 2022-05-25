@@ -26,6 +26,18 @@ const DashBoard = () => {
               <Link to="addareview">Add A Review</Link>
             </li>
             <li>
+              <Link to="manageorders">Manage All Orders</Link>
+            </li>
+            <li>
+              <Link to="managetools">Manage Tools</Link>
+            </li>
+            <li>
+              <Link to="addtool">Add Tool</Link>
+            </li>
+            <li>
+              <Link to="makeadmin">Make Admin</Link>
+            </li>
+            <li>
               <Link to="myprofile">My Profile</Link>
             </li>
           </ul>

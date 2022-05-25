@@ -18,6 +18,10 @@ import MyOrders from "./Pages/DashBoard/MyOrders";
 import AddReview from "./Pages/DashBoard/AddReview";
 import MyProfile from "./Pages/DashBoard/MyProfile";
 import Payment from './Pages/Payment/Payment';
+import ManageAllOrders from "./Pages/DashBoard/ManageAllOrders";
+import ManageTools from "./Pages/DashBoard/ManageTools";
+import AddTool from "./Pages/DashBoard/AddTool";
+import MakeAdmin from "./Pages/DashBoard/MakeAdmin";
 
 function App() {
   useEffect(() => {
@@ -50,6 +54,10 @@ function App() {
             <Route index element={<MyOrders></MyOrders>}></Route>
             <Route path="addareview" element={<AddReview></AddReview>}></Route>
             <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
+            <Route path="manageorders" element={<ManageAllOrders></ManageAllOrders>}></Route>
+            <Route path="managetools" element={<ManageTools></ManageTools>}></Route>
+            <Route path="addtool" element={<AddTool></AddTool>}></Route>
+            <Route path="makeadmin" element={<MakeAdmin></MakeAdmin>}></Route>
         </Route>
         <Route path="/payment/:productId" element={<Payment></Payment>}></Route>
 
