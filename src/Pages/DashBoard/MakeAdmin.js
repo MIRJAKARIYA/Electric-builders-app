@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import MakeSingleAdmin from "./MakeSingleAdmin";
 
 const MakeAdmin = () => {
+  const [users, setUsers] = useState([]);
+  const [makeAdminModal, setMakeAdminModal] = useState(null);
+  useEffect(()=>{
+    fetch('http://localhost:5000/allUsers')
+    .then(res => res.json())
+    .then(data => setUsers(data));
+  },[])
   return (
     <>
       <h1>Make Admin</h1>
@@ -10,18 +18,16 @@ const MakeAdmin = () => {
             <thead>
               <tr>
                 <th></th>
-                <th>Buyer</th>
-                <th>Buyer Email</th>
-                <th>Tool</th>
-                <th>Purchased Date</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Delivery</th>
+                <th>User</th>
+                <th>Email</th>
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {
+                users.map(user => <MakeSingleAdmin user={user} key={user._id}></MakeSingleAdmin>)
+              }
+            </tbody>
           </table>
         </div>
       </div>

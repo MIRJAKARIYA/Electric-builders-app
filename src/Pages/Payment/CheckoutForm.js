@@ -12,7 +12,11 @@ const CheckoutForm = ({product}) => {
   const {price,buyer,_id,status} = product;
 
   useEffect(()=>{
-    fetch('http://localhost:5000/create-payment-intent',{
+    if(price > 999999.99){
+      setCardError('Stripe payment cannot exceed $999999.99')
+    }
+    else{
+      fetch('http://localhost:5000/create-payment-intent',{
         method:'POST',
         headers:{
             'content-type':'application/json',
@@ -26,6 +30,7 @@ const CheckoutForm = ({product}) => {
             setClientSecret(data.clientSecret);
         }
     })
+    }
 
   },[price]);
 
@@ -117,7 +122,7 @@ const CheckoutForm = ({product}) => {
         <button
           type="submit"
           className="btn btn-success btn-sm mt-4"
-          disabled={!stripe || !clientSecret || success || status === 'paid'}
+          disabled={!stripe || !clientSecret || success || cardError || status === 'paid'}
         >
           Pay
         </button>

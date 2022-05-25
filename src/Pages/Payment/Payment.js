@@ -7,13 +7,14 @@ import CheckoutForm from "./CheckoutForm";
 const Payment = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
+    const [stripePromise, setStripePromise] = useState(() => loadStripe("pk_test_51L0YXaEgVD8phfXM8dDakoBtn1Khl0MXIGTMgEmOmLbjQEkziGw7qDNQdemfQxRhX1f4p7SrfRamvLAw5vrCLvH500J9J8y4ji"))
     useEffect(() => {
       fetch(`http://localhost:5000/purchasedSingle/${productId}`)
         .then((res) => res.json())
         .then((data) => setProduct(data));
     }, [productId]);
 
-    const stripePromise = loadStripe("pk_test_51L0YXaEgVD8phfXM8dDakoBtn1Khl0MXIGTMgEmOmLbjQEkziGw7qDNQdemfQxRhX1f4p7SrfRamvLAw5vrCLvH500J9J8y4ji");
+    
 
     return (
         <div>
