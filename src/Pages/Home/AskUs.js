@@ -1,7 +1,12 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Question from "../../images/ask_us/question.jpg";
 
 const AskUs = () => {
+  const hadleQuery = (e) =>{
+    e.preventDefault();
+    toast.success('Your query is submitted successfully');
+  }
   return (
     <>
       <h1 className="text-center text-red-700 font-semibold text-2xl mt-10 mb-5">
@@ -19,7 +24,7 @@ const AskUs = () => {
           className="h-[400px] items-center w-full flex justify-center"
           data-aos="zoom-in"
         >
-          <form>
+          <form onSubmit={hadleQuery}>
             <div className="flex gap-2">
               <div className="flex-1">
                 <span className="text-sm">Your Name:</span>

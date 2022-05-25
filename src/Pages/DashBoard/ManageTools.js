@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DeleteToolModal from "./DeleteToolModal";
 import SingleManageTool from "./SingleManageTool";
 import UpdateToolModal from "./UpdateToolModal";
 
@@ -6,7 +7,9 @@ const ManageTools = () => {
   const [tools, setTools] = useState([]);
   const [reload, setReload] = useState(false);
   const [reversedTools, setReversedTools] = useState([]);
-  const [updateModal, setUpdateModal] = useState(null)
+  const [updateModal, setUpdateModal] = useState(null);
+  const [deleteModal, setDeleteModal] = useState("");
+  console.log(deleteModal)
   useEffect(() => {
     fetch("http://localhost:5000/getTools")
       .then((res) => res.json())
@@ -37,13 +40,16 @@ const ManageTools = () => {
             </thead>
             <tbody>
                 {
-                    reversedTools.map(tool => <SingleManageTool key={tool._id} setUpdateModal={setUpdateModal} tool={tool}></SingleManageTool>)
+                    reversedTools.map(tool => <SingleManageTool key={tool._id} setDeleteModal={setDeleteModal} setUpdateModal={setUpdateModal} tool={tool}></SingleManageTool>)
                 }
             </tbody>
           </table>
         </div>
         {
             updateModal && <UpdateToolModal reload={reload} setReload={setReload} updateModal={updateModal} setUpdateModal={setUpdateModal}></UpdateToolModal>
+        }
+        {
+            deleteModal && <DeleteToolModal deleteModal={deleteModal} setDeleteModal={setDeleteModal} reload={reload} setReload={setReload}></DeleteToolModal>
         }
       </div>
     </>

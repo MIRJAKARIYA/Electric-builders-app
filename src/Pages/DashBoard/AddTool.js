@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const AddTool = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const onSubmit = (data) =>{
         const toolName = data.toolName;
         const description = data.description;
@@ -28,7 +28,10 @@ const AddTool = () => {
             body:JSON.stringify(toolData)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+          toast.success('Tool added successfully')
+        })
+        reset();
     }
         return (
         <>

@@ -2,11 +2,10 @@ import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { MdSystemUpdateAlt } from "react-icons/md";
 
-const SingleManageTool = ({ tool, setUpdateModal }) => {
+const SingleManageTool = ({ tool, setUpdateModal, setDeleteModal }) => {
   const {
     toolName,
     img,
-    description,
     minimumOrderQuantity,
     availableQuantity,
     price,
@@ -34,9 +33,9 @@ const SingleManageTool = ({ tool, setUpdateModal }) => {
           >
             <MdSystemUpdateAlt />
           </label>
-          <button className="text-2xl ml-2 text-red-700">
+          <label htmlFor="my-modal-tool-delete" onClick={()=>setDeleteModal(_id)} className="text-2xl ml-2 text-red-700">
             <AiFillDelete />
-          </button>
+          </label>
         </div>
       </td>
     </tr>
