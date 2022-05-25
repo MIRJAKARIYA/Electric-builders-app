@@ -3,15 +3,18 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { MdOutlineSystemUpdateAlt, MdEmail } from "react-icons/md";
 import { BsTelephoneXFill, BsLinkedin } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
+import userThumb from '../../images/user_default/userDefault.png';
 
 import auth from "../../firebase.init";
 import { toast } from "react-toastify";
+import MyProfileUpdateModal from "./MyProfileUpdateModal";
 
 const MyProfile = () => {
   const [user] = useAuthState(auth);
   const [person, setPerson] = useState({});
   const [updateField, setUpdateField] = useState(null);
   const [reload, setReload] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -37,7 +40,7 @@ const MyProfile = () => {
           setReload(!reload);
         });
     }
-  }, [updateField, person,reload]);
+  }, [updateField, person, reload]);
 
   const handleLinkedIn = (e) => {
     e.preventDefault();
@@ -53,7 +56,10 @@ const MyProfile = () => {
   };
   const handleEducation = (e) => {
     e.preventDefault();
-    setUpdateField({ linkedIn: e.target.education.value });
+    setUpdateField({ education: e.target.education.value });
+  };
+  const handleModalOpen = () => {
+    setModalData(person._id);
   };
 
   return (
@@ -64,27 +70,36 @@ const MyProfile = () => {
         </h1>
         <div className="w-[200px] h-[200px] border-2 border-yellow-600 rounded-full p-2 mx-auto">
           <img
-            src="https://api.lorem.space/image/movie?w=260&h=400"
+            src={person.profilePicture?person.profilePicture:userThumb}
             className="w-full h-full rounded-full"
             alt=""
           />
         </div>
-        <div className="">
-          <p className="text-white text-xl text-center">{person.name}</p>
+        <div className="mt-4">
+          <p className="text-white text-xl text-center">{user?.displayName}</p>
           <div className="flex justify-around mt-4">
             <div className="">
               <div className="flex items-center">
                 <p className="text-white text-xl">
                   <MdEmail />
                 </p>
-                <p className="text-yellow-500 ml-1 mt-[-2px]">{person.email}</p>
+                <p className="text-yellow-500 ml-1 mt-[-2px]">{user?.email}</p>
               </div>
               <div className="flex items-center mt-2">
                 <p className="text-white text-lg">
                   <BsLinkedin />
                 </p>
-                {
-                    person?.linkedIn? <a target='_blank' rel="noreferrer" className="ml-2 text-yellow-500 underline" href={person.linkedIn}>LinkedIn</a>:<form className="flex items-center" onSubmit={handleLinkedIn}>
+                {person?.linkedIn ? (
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ml-2 text-yellow-500 underline"
+                    href={person.linkedIn}
+                  >
+                    LinkedIn
+                  </a>
+                ) : (
+                  <form className="flex items-center" onSubmit={handleLinkedIn}>
                     <input
                       type="text"
                       placeholder="+ linkedIn"
@@ -92,11 +107,14 @@ const MyProfile = () => {
                       className="input input-warning h-[20px] w-full max-w-xs ml-2"
                       required
                     />
-                    <button type="submit" className="btn btn-accent btn-xs ml-2">
+                    <button
+                      type="submit"
+                      className="btn btn-accent btn-xs ml-2"
+                    >
                       +
                     </button>
                   </form>
-                }
+                )}
               </div>
             </div>
             <div>
@@ -104,8 +122,10 @@ const MyProfile = () => {
                 <p className="text-white text-lg">
                   <ImLocation2 />
                 </p>
-                {
-                    person?.address?<p className="ml-2 text-yellow-500">{person.address}</p>:<form className="flex items-center" onSubmit={handleAddress}>
+                {person?.address ? (
+                  <p className="ml-2 text-yellow-500">{person.address}</p>
+                ) : (
+                  <form className="flex items-center" onSubmit={handleAddress}>
                     <input
                       type="text"
                       placeholder="+ location"
@@ -113,18 +133,23 @@ const MyProfile = () => {
                       className="input input-warning h-[20px] w-full max-w-xs ml-2"
                       required
                     />
-                    <button type="submit" className="btn btn-accent btn-xs ml-2">
+                    <button
+                      type="submit"
+                      className="btn btn-accent btn-xs ml-2"
+                    >
                       +
                     </button>
                   </form>
-                }
+                )}
               </div>
               <div className="flex items-center mt-2">
                 <p className="text-white text-lg">
                   <BsTelephoneXFill />
                 </p>
-                {
-                    person?.phone?<p className="ml-2 text-yellow-500">{person.phone}</p>:<form className="flex items-center" onSubmit={handlePhone}>
+                {person?.phone ? (
+                  <p className="ml-2 text-yellow-500">{person.phone}</p>
+                ) : (
+                  <form className="flex items-center" onSubmit={handlePhone}>
                     <input
                       type="number"
                       placeholder="+ phone"
@@ -132,37 +157,56 @@ const MyProfile = () => {
                       className="input input-warning h-[20px] w-full max-w-xs ml-2"
                       required
                     />
-                    <button type="submit" className="btn btn-accent btn-xs ml-2">
+                    <button
+                      type="submit"
+                      className="btn btn-accent btn-xs ml-2"
+                    >
                       +
                     </button>
                   </form>
-                }
+                )}
               </div>
             </div>
           </div>
-                <div>
-                <h1 className="text-white mt-4">Education</h1>
-                <form className="flex items-center" onSubmit={handleEducation}>
-                    <input
-                      type="text"
-                      placeholder="+ linkedIn"
-                      name="education"
-                      className="input input-warning h-[20px] w-full max-w-xs ml-2"
-                      required
-                    />
-                    <button type="submit" className="btn btn-accent btn-xs ml-2">
-                      +
-                    </button>
-                  </form>
-                </div>
+          <div className="flex items-center mt-4 justify-center">
+            <h1 className="text-white">Education:</h1>
+            {person?.education ? (
+              <p className="ml-2 text-yellow-500">{person.education}</p>
+            ) : (
+              <form className="flex items-center" onSubmit={handleEducation}>
+                <input
+                  type="text"
+                  placeholder="+ education"
+                  name="education"
+                  className="input input-warning h-[20px] w-full max-w-xs ml-2"
+                  required
+                />
+                <button type="submit" className="btn btn-accent btn-xs ml-2">
+                  +
+                </button>
+              </form>
+            )}
+          </div>
         </div>
-        <button
+        <label
           title="Update Profile"
+          htmlFor="my-modal-profile"
           className="absolute top-2 right-2 text-3xl text-white"
+          onClick={handleModalOpen}
+          style={{ cursor: "pointer" }}
         >
           <MdOutlineSystemUpdateAlt />
-        </button>
+        </label>
       </div>
+      {modalData && (
+        <MyProfileUpdateModal
+          profile={person._id}
+          setReload={setReload}
+          reload={reload}
+          setModalData={setModalData}
+          person={person}
+        ></MyProfileUpdateModal>
+      )}
     </div>
   );
 };

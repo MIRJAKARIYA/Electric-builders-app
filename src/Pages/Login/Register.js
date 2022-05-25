@@ -90,7 +90,6 @@ const Register = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     const password = passRef.current.value;
     setPassError(false);
     setConfirmPassError(false);
