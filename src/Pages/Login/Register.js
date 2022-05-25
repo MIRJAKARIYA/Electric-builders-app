@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -38,7 +38,13 @@ const Register = () => {
   const [createUserWithEmailAndPassword, user] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const [token] = useToken(user?.user?.email);
+  const [token] = useToken(user?.user);
+
+  useEffect(()=>{
+    if(token){
+      navigate('/home')
+    }
+  },[token,navigate])
 
   const passValidate = (e) => {
     console.log(e.target.value);

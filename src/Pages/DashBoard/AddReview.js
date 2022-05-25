@@ -6,7 +6,6 @@ import auth from "../../firebase.init";
 
 const AddReview = () => {
   const [user] = useAuthState(auth);
-  console.log(user)
   const [rating, setRating] = useState(1);
 
   const { register, handleSubmit,reset } = useForm();
@@ -45,7 +44,7 @@ const AddReview = () => {
 
   return (
     <div className="max-w-[1200px] mr-auto lg:mr-10 ml-auto w-[95%] px-5 mt-20">
-      <div className="border-2 max-w-[450px] mx-auto relative py-5 rounded-lg bg-slate-700">
+      <div className="max-w-[450px] mx-auto relative py-5 rounded-lg bg-slate-700">
         <h1 className="text-center text-2xl font-semibold text-warning">
           Please make a review about us
         </h1>

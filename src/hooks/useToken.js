@@ -1,21 +1,29 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useToken = (email) => {
+const useToken = (user) => {
   const [token, setToken] = useState("");
-  useEffect(() => {
-    const getToken = async () => {
-      if (email) {
-        const { data } = await axios.post(
-          "http://localhost:5000/getToken",
-          { email }
-        );
-        setToken(data.accessToken);
-        localStorage.setItem("ACCESS_TOKEN", data.accessToken);
-      }
-    };
-    getToken();
-  }, [email]);
+  useEffect(()=>{
+    const email = user?.email;
+    const userName = user?.displayName;
+    const enteredUser = {name:userName, email:email}
+    if(email){
+      fetch(`http://localhost:5000/user/${email}`,{
+        method:'PATCH',
+        headers:{
+          'content-type':'application/json'
+        },
+        body:JSON.stringify(enteredUser)
+      })
+      .then(res => res.json())
+      .then(data => {
+        const accessToken = data.token;
+        localStorage.setItem('ACCESS_TOKEN',accessToken)
+        setToken(accessToken);
+      })
+    }
+  },[user]);
+
+
   return [token];
 };
 

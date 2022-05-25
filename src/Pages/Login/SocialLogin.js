@@ -14,13 +14,13 @@ const SocialLogin = () => {
     const [signInWithGoogle, user1] = useSignInWithGoogle(auth);
     const [signInWithGithub, user2] = useSignInWithGithub(auth);
     const [signInWithFacebook, user3] = useSignInWithFacebook(auth);
-    const [token] = useToken(user1?.user?.email|| user2?.user?.email || user3?.user?.email)
+    const [token] = useToken(user1?.user|| user2?.user || user3?.user)
 
     useEffect(()=>{
-        if(user1 || user2 || user3){
+        if(token){
             navigate(from, { replace:true });
         }
-    },[from,navigate,user1,user2,user3]);
+    },[from,navigate,token]);
     return (
         <div className='mb-4'>
             <div>

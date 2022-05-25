@@ -20,7 +20,7 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending, ResetError] =
     useSendPasswordResetEmail(auth);
-  const [token] = useToken(user?.user?.email);
+  const [token] = useToken(user?.user);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleForgotPassword = async () => {
