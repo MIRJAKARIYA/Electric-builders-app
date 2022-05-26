@@ -56,7 +56,7 @@ function App() {
             <DashBoard></DashBoard>
           </RequireAuth>
         }>
-            <Route index element={
+            <Route path='myorders' element={
               <RequireAuth>
                 <MyOrders></MyOrders>
               </RequireAuth>
@@ -66,7 +66,7 @@ function App() {
                 <AddReview></AddReview>
               </RequireAuth>
             }></Route>
-            <Route path="myprofile" element={
+            <Route index element={
               <RequireAuth>
                 <MyProfile></MyProfile>
               </RequireAuth>

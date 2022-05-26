@@ -1,4 +1,7 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 import AdminCreationModal from "./AdminCreationModal";
 import MakeSingleAdmin from "./MakeSingleAdmin";
 
@@ -6,6 +9,7 @@ const MakeAdmin = () => {
   const [users, setUsers] = useState([]);
   const [reload, setReload] = useState(false);
   const [makeAdminModal, setMakeAdminModal] = useState(null);
+  const navigate = useNavigate()
   useEffect(()=>{
     fetch('http://localhost:5000/allUsers',{
       method:'GET',
@@ -13,9 +17,17 @@ const MakeAdmin = () => {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
       }
     })
-    .then(res => res.json())
+    .then((res) => {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("ACCESS_TOKEN");
+        navigate("/home");
+      }
+      return res.json();
+    })
     .then(data => setUsers(data));
-  },[reload])
+  },[reload, navigate])
   return (
     <>
       <h1 className="text-2xl text-center text-red-700 font-semibold mt-5">Make Admin</h1>
@@ -31,7 +43,7 @@ const MakeAdmin = () => {
             </thead>
             <tbody>
               {
-                users.map(user => <MakeSingleAdmin setMakeAdminModal={setMakeAdminModal} user={user} key={user._id}></MakeSingleAdmin>)
+                users?.map(user => <MakeSingleAdmin setMakeAdminModal={setMakeAdminModal} user={user} key={user._id}></MakeSingleAdmin>)
               }
             </tbody>
           </table>

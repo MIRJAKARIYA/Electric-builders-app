@@ -17,7 +17,7 @@ const MyOrders = () => {
             <div className={`${orders.length <2 ? 'flex justify-center':orders.length <3?'flex md:flex-row flex-col justify-center':'grid lg:grid-cols-3 md:grid-cols-2'} gap-5`}>
                 {
                     orders.length>0 ? 
-                        orders.map(order => <SingleOrder setModalData={setModalData} key={order._id} order={order}></SingleOrder>)
+                        orders?.map(order => <SingleOrder setModalData={setModalData} key={order._id} order={order}></SingleOrder>)
                     :
                     <h1 className='text-xl font-semibold mt-10'>You didn't order anything yet🙂</h1>
                 }

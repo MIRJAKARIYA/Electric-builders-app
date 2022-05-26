@@ -27,13 +27,11 @@ const Banner = () => {
               />
             </div>
             <div className="md:w-[60%] w-full">
-              <h1 className="md:text-4xl text-2xl font-bold">
-                Box Office News!
+              <h1 className="md:text-5xl text-2xl font-bold">
+                Electric Builders co.
               </h1>
-              <p className="py-3">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
+              <p className="py-3 font-semibold text-lg">
+                Your most trusted builders for electrical tools.Order Without any hesitation to get your product as early as you want.
               </p>
               <button className="btn btn-primary">Get Started</button>
             </div>
@@ -49,8 +47,8 @@ const Banner = () => {
               />
             </div>
             <div className="md:w-[60%] w-full">
-              <h1 className="text-5xl font-bold">Box Office News!</h1>
-              <p className="py-6">
+              <h1 className="md:text-5xl text-2xl font-bold">Shipment is available!!!</h1>
+              <p className="py-3">
                 Provident cupiditate voluptatem et in. Quaerat fugiat ut
                 assumenda excepturi exercitationem quasi. In deleniti eaque aut
                 repudiandae et a id nisi.

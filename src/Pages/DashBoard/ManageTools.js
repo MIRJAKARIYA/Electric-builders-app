@@ -15,7 +15,7 @@ const ManageTools = () => {
   const navigate = useNavigate();
   console.log(deleteModal)
   useEffect(() => {
-    fetch("http://localhost:5000/getTools",{
+    fetch("http://localhost:5000/adminGetTools",{
       method:'GET',
       headers:{
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
@@ -62,7 +62,7 @@ const ManageTools = () => {
             </thead>
             <tbody>
                 {
-                    reversedTools.map(tool => <SingleManageTool key={tool._id} setDeleteModal={setDeleteModal} setUpdateModal={setUpdateModal} tool={tool}></SingleManageTool>)
+                    reversedTools?.map(tool => <SingleManageTool key={tool._id} setDeleteModal={setDeleteModal} setUpdateModal={setUpdateModal} tool={tool}></SingleManageTool>)
                 }
             </tbody>
           </table>

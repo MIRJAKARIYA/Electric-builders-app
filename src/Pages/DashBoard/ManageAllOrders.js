@@ -61,7 +61,7 @@ const ManageAllOrders = () => {
             </thead>
             <tbody>
                 {
-                    reversedOrders.map((order,index) => <SIngleManageOrder setDeliverModal={setDeliverModal} key={order._id} order={order} index={index} setDeleteModal={setDeleteModal}></SIngleManageOrder>)
+                    reversedOrders?.map((order,index) => <SIngleManageOrder setDeliverModal={setDeliverModal} key={order._id} order={order} index={index} setDeleteModal={setDeleteModal}></SIngleManageOrder>)
                 }
             </tbody>
           </table>
