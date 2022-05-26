@@ -25,7 +25,7 @@ const SingleTool = ({ tool }) => {
         data-aos="fade-up"
         data-aos-duration="500"
         data-aos-easing="ease-in-out"
-        className="card rounded-xl p-3 bg-slate-700 text-white shadow-xl"
+        className="card rounded-xl p-3 max-w-[390px] bg-slate-700 text-white shadow-xl"
       >
         <figure>
           <img
@@ -36,7 +36,7 @@ const SingleTool = ({ tool }) => {
         </figure>
         <div className="">
           <h2 className="card-title">{toolName}</h2>
-          <p>{showMore ? description : description.slice(0, 90)+'...'}</p>
+          <p className="break-all">{showMore ? description : description.slice(0, 90)+'...'}</p>
           <button className="block text-sm ml-auto text-yellow-500" onClick={() => setShowMore(!showMore)}>{showMore?'show less':'show more'}</button>
 
           <p><span className="text-orange-600 font-semibold">Minimum oreder quantity:</span> {minimumOrderQuantity}</p>

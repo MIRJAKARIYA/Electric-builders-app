@@ -41,7 +41,7 @@ const ManageAllOrders = () => {
     
   return (
     <>
-      <h1>Manage All Orders</h1>
+      <h1 className="text-center mt-5 text-2xl font-semibold text-red-700">Manage All Orders</h1>
       <div className="mr-auto lg:mr-0 ml-auto w-[95%] px-5 mt-5">
         <div className="overflow-x-auto">
           <table className="table w-full">
