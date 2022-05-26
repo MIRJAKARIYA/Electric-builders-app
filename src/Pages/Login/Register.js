@@ -34,9 +34,10 @@ const Register = () => {
   const passRef = useRef();
 
   const navigate = useNavigate();
-  const [updateProfile] = useUpdateProfile(auth);
+  
   const [createUserWithEmailAndPassword, user] =
     useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile] = useUpdateProfile(auth);
 
   const [token] = useToken(user?.user);
 
@@ -45,6 +46,8 @@ const Register = () => {
       navigate('/home')
     }
   },[token,navigate])
+
+  console.log(user)
 
   const passValidate = (e) => {
     console.log(e.target.value);
@@ -89,7 +92,8 @@ const Register = () => {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
+    const name = data.name
     const password = passRef.current.value;
     setPassError(false);
     setConfirmPassError(false);
@@ -103,7 +107,7 @@ const Register = () => {
     ) {
       if (password === data.confirmPassword) {
         await createUserWithEmailAndPassword(data.email, password);
-        await updateProfile({ displayName: data.name });
+        await updateProfile({ displayName: name });
       } else {
         setConfirmPassError(true);
       }

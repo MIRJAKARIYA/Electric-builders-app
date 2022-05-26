@@ -1,9 +1,14 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
   const location = useLocation();
+  const [user] = useAuthState(auth);
+
   return (
     <div className="navbar max-w-[1350px] mx-auto">
       <div className="navbar-start">
@@ -43,9 +48,11 @@ const Navbar = () => {
             <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
-            <li>
+            {
+              user?<button onClick={()=>signOut(auth)}>Logout</button>:<li>
               <Link to="/login">Login</Link>
             </li>
+            }
           </ul>
         </div>
         <h1 className="text-2xl font-bold">Electric Manufacturer</h1>
@@ -64,9 +71,11 @@ const Navbar = () => {
           <Link className="mr-6" to="/dashboard">
             Dashboard
           </Link>
-          <Link className="mr-6" to="/login">
+          {
+            user?<button onClick={()=>signOut(auth)}>signout</button>:<Link className="mr-6" to="/login">
             Login
           </Link>
+          }
         </div>
       </div>
       {location.pathname.includes("dashboard") && (

@@ -76,7 +76,7 @@ const MyProfile = () => {
           />
         </div>
         <div className="mt-4">
-          <p className="text-white text-xl text-center">{user?.displayName}</p>
+          <p className="text-white text-xl text-center">{user?.displayName} <span className="text-[11px] text-warning">{person?.role==='admin'?'admin':'user'}</span></p>
           <div className="flex justify-around mt-4">
             <div className="">
               <div className="flex items-center">
