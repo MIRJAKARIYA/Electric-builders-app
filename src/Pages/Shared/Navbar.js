@@ -49,7 +49,10 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             {
-              user?<button onClick={()=>signOut(auth)}>Logout</button>:<li>
+              user?<div>
+                <button onClick={()=>signOut(auth)}>Logout</button>
+                <p>{user.displayName}</p>
+              </div>:<li>
               <Link to="/login">Login</Link>
             </li>
             }
