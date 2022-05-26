@@ -92,7 +92,7 @@ const Navbar = () => {
       {location.pathname.includes("dashboard") && (
         <label
           htmlFor="my-drawer-dashboard"
-          className=" lg:hidden ml-auto mr-4 text-xl"
+          className=" lg:hidden ml-auto mr-4 text-xl text-white"
           style={{ cursor: "pointer" }}
         >
           <BsReverseLayoutSidebarInsetReverse />
