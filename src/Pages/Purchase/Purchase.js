@@ -1,6 +1,7 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Purchase = () => {
@@ -9,6 +10,7 @@ const Purchase = () => {
   const [user] = useAuthState(auth);
   const [purchaseError, setPurchaseError] = useState("");
   const [minimuQuantity, setMinimumQuantity] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:5000/getTool/${toolId}`)
@@ -64,11 +66,24 @@ const Purchase = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization:`Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
       },
       body: JSON.stringify(purchaseData),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    .then((res) => {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("ACCESS_TOKEN");
+        navigate("/home");
+      }
+      return res.json();
+    })
+      .then((data) => {
+        if(data.acknowledged)
+        navigate(`/payment/${data.insertedId}`)
+        console.log(data)
+      });
   };
 
   return (

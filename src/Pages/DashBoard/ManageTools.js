@@ -1,4 +1,7 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 import DeleteToolModal from "./DeleteToolModal";
 import SingleManageTool from "./SingleManageTool";
 import UpdateToolModal from "./UpdateToolModal";
@@ -9,12 +12,31 @@ const ManageTools = () => {
   const [reversedTools, setReversedTools] = useState([]);
   const [updateModal, setUpdateModal] = useState(null);
   const [deleteModal, setDeleteModal] = useState("");
+  const navigate = useNavigate();
   console.log(deleteModal)
   useEffect(() => {
-    fetch("http://localhost:5000/getTools")
-      .then((res) => res.json())
-      .then((data) => setTools(data));
-  }, [reload]);
+    fetch("http://localhost:5000/getTools",{
+      method:'GET',
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      }
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("ACCESS_TOKEN");
+        navigate("/home");
+      }
+      return res.json();
+    })
+      .then((data) =>{
+        console.log(data)
+
+          setTools(data)
+
+      });
+  }, [reload,navigate]);
   useEffect(()=>{
     if(tools.length > 0){
         setReversedTools(tools.reverse());

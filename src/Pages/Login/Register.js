@@ -34,20 +34,18 @@ const Register = () => {
   const passRef = useRef();
 
   const navigate = useNavigate();
-  
+
   const [createUserWithEmailAndPassword, user] =
     useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile] = useUpdateProfile(auth);
+  const [updateProfile] = useUpdateProfile(auth);
 
   const [token] = useToken(user?.user);
 
-  useEffect(()=>{
-    if(token){
-      navigate('/home')
+  useEffect(() => {
+    if (token) {
+      navigate("/home");
     }
-  },[token,navigate])
-
-  console.log(user)
+  }, [token, navigate]);
 
   const passValidate = (e) => {
     console.log(e.target.value);
@@ -92,8 +90,8 @@ const Register = () => {
     }
   };
 
-  const onSubmit = async data => {
-    const name = data.name
+  const onSubmit = async (data) => {
+    const name = data.name;
     const password = passRef.current.value;
     setPassError(false);
     setConfirmPassError(false);
@@ -215,12 +213,9 @@ const Register = () => {
               <div className="divider mt-[-15px] w-[95%] mx-auto">OR</div>
               <SocialLogin></SocialLogin>
             </div>
-            <Link
-              to="/login"
-              className="block md:pr-[140px] text-center md:text-right underline text-blue-700 mt-3"
-            >
-              already have an account?
-            </Link>
+            <p className="md:pr-[140px] text-center md:text-right underline text-blue-700 mt-3">
+              <Link to="/login">already have an account?</Link>
+            </p>
           </div>
         </div>
         <div className="flex-1 flex md:justify-start justify-center items-center">

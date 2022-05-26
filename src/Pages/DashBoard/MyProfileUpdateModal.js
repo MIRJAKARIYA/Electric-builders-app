@@ -1,56 +1,74 @@
+import { signOut } from "firebase/auth";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
-const MyProfileUpdateModal = ({ profile, setReload, reload, setModalData,person}) => {
+const MyProfileUpdateModal = ({
+  profile,
+  setReload,
+  reload,
+  setModalData,
+  person,
+}) => {
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
-    const { register, handleSubmit } = useForm();
-
-    const imgHostKey = 'd17e11b10bbea4a4a98c282f92b32b5b';
+  const imgHostKey = "d17e11b10bbea4a4a98c282f92b32b5b";
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    const address = data.address
-    const phone = data.phone
-    const linkedIn = data.linkedIn
-    const education = data.education
+    const address = data.address;
+    const phone = data.phone;
+    const linkedIn = data.linkedIn;
+    const education = data.education;
     const profilePicture = data.profileThumb[0];
-    
-    formData.append('image', profilePicture)
 
-    console.log(profilePicture)
-    
+    formData.append("image", profilePicture);
+
+    console.log(profilePicture);
+
     const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
-    fetch(url,{
-        method:'POST',
-        body:formData
-
-    })
-    .then(res => res.json())
-    .then(result =>{
-        console.log('imgbb', result)
-        fetch(`http://localhost:5000/profile/${profile}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-          address:address,
-          phone:phone,
-          linkedIn:linkedIn,
-          education:education,
-          profilePicture: result.data.url
-      }),
+    fetch(url, {
+      method: "POST",
+      body: formData,
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setReload(!reload);
-        setModalData(null)
-        toast.success('Profile has been updated successfully.')
+      .then((result) => {
+        console.log("imgbb", result);
+        fetch(`http://localhost:5000/profile/${profile}`, {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+          },
+          body: JSON.stringify({
+            address: address,
+            phone: phone,
+            linkedIn: linkedIn,
+            education: education,
+            profilePicture: result.data.url,
+          }),
+        })
+          .then((res) => {
+            console.log(res);
+            if (res.status === 401 || res.status === 403) {
+              signOut(auth);
+              localStorage.removeItem("ACCESS_TOKEN");
+              navigate("/home");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              setReload(!reload);
+              setModalData(null);
+              toast.success("Profile has been updated successfully.");
+            }
+          });
       });
-    })
-    
   };
   return (
     <>
@@ -69,9 +87,8 @@ const MyProfileUpdateModal = ({ profile, setReload, reload, setModalData,person}
                 type="text"
                 placeholder="Your address"
                 className="input input-bordered"
-                {...register('address')}
+                {...register("address")}
                 required
-
               />
             </div>
             <div className="form-control">
@@ -82,10 +99,8 @@ const MyProfileUpdateModal = ({ profile, setReload, reload, setModalData,person}
                 type="text"
                 placeholder="Your linkedIn profile link"
                 className="input input-bordered"
-
-                {...register('linkedIn')}
+                {...register("linkedIn")}
                 required
-
               />
             </div>
             <div className="form-control">
@@ -96,9 +111,8 @@ const MyProfileUpdateModal = ({ profile, setReload, reload, setModalData,person}
                 type="number"
                 placeholder="Your phone number"
                 className="input input-bordered"
-                {...register('phone')}
+                {...register("phone")}
                 required
-
               />
             </div>
             <div className="form-control">
@@ -109,9 +123,8 @@ const MyProfileUpdateModal = ({ profile, setReload, reload, setModalData,person}
                 type="text"
                 placeholder="Your education"
                 className="input input-bordered"
-                {...register('education')}
+                {...register("education")}
                 required
-
               />
             </div>
             <div className="form-control">
@@ -122,7 +135,7 @@ const MyProfileUpdateModal = ({ profile, setReload, reload, setModalData,person}
                 type="file"
                 placeholder="Your education"
                 className="input input-bordered"
-                {...register('profileThumb')}
+                {...register("profileThumb")}
                 required
               />
             </div>

@@ -2,13 +2,18 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const UpdateToolModal = ({ updateModal, setUpdateModal,reload, setReload }) => {
+const UpdateToolModal = ({
+  updateModal,
+  setUpdateModal,
+  reload,
+  setReload,
+}) => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     const updateData = {
       availableQuantity: parseInt(data.availableQuantity),
       minimumOrderQuantity: parseInt(data.minimumOrderQuantity),
-      price: parseInt(data.price)
+      price: parseInt(data.price),
     };
     console.log(updateData);
 
@@ -16,14 +21,17 @@ const UpdateToolModal = ({ updateModal, setUpdateModal,reload, setReload }) => {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
       },
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.acknowledged) {
           setReload(!reload);
           setUpdateModal(null);
-          toast.success('Tool updated successfully')
+          toast.success("Tool updated successfully");
+        }
       });
   };
   return (

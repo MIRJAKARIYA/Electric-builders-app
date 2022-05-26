@@ -1,5 +1,8 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const DeleteOrderModal = ({
   deleteModal,
@@ -14,15 +17,31 @@ const DeleteOrderModal = ({
     quantity,
     _id,
   } = deleteModal;
+  const navigate = useNavigate();
+
   const handleCancelOrder = () =>{
     fetch(`http://localhost:5000/deletOrder/${_id}`,{
       method:'DELETE',
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      }
     })
-    .then(res => res.json())
+    .then((res) => {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("ACCESS_TOKEN");
+        navigate("/home");
+      }
+      return res.json();
+    })
     .then(data => {
-      setReload(!reload);
-      setDeleteModal(null);
-      toast.warning('Order canceled');
+      if(data.acknowledged){
+        setReload(!reload);
+        setDeleteModal(null);
+        toast.warning('Order canceled');
+      }
+      
     })
   }
   

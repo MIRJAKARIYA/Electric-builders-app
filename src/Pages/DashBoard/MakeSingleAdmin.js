@@ -9,7 +9,6 @@ const MakeSingleAdmin = ({user,setMakeAdminModal}) => {
             <td>
                 {
                     user.role === 'admin' ? <p className='text-green-700 font-semibold'>Admin</p>:<label htmlFor="my-modal-create-admin" className='btn btn-primary btn-xs' onClick={()=>setMakeAdminModal(user)}>make admin</label>
-
                 }
             </td>
         </tr>

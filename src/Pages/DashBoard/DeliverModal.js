@@ -1,8 +1,12 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const DeliverModal = ({ deliverModal, setDeliverModal, reload, setReload }) => {
   const [order, setOrder] = useState({});
+  const navigate = useNavigate()
   useEffect(() => {
     fetch(`http://localhost:5000/purchasedSingle/${deliverModal}`)
       .then((res) => res.json())
@@ -23,14 +27,25 @@ const DeliverModal = ({ deliverModal, setDeliverModal, reload, setReload }) => {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
           },
           body: JSON.stringify({ quantity: order.quantity }),
         })
-          .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("ACCESS_TOKEN");
+            navigate("/home");
+          }
+          return res.json();
+        })
           .then((data) => {
+            if (data.acknowledged){
               setDeliverModal(null)
               setReload(!reload)
               toast.success('Order shipped successfully')
+            }
           });
       });
   };

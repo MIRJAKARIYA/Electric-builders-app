@@ -1,20 +1,38 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 import DeleteOrderModal from "./DeleteOrderModal";
 import DeliverModal from "./DeliverModal";
 import SIngleManageOrder from "./SIngleManageOrder";
 
 const ManageAllOrders = () => {
- 
+    const navigate = useNavigate();
     const [reload, setReload] = useState(false);
     const [orders, setOrders] = useState([]);
     const [reversedOrders, setReversedOrders] = useState([]);
     const [deliverModal, setDeliverModal] = useState(null);
     const [deleteModal, setDeleteModal] = useState(null);   
     useEffect(()=>{
-        fetch('http://localhost:5000/purchased')
-        .then(res => res.json())
-        .then(data => setOrders(data))
-    },[reload])
+        fetch('http://localhost:5000/purchased',{
+          method:'GET',
+          headers:{
+            authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+          }
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("ACCESS_TOKEN");
+            navigate("/home");
+          }
+          return res.json();
+        })
+        .then(data => {
+            setOrders(data)
+        })
+    },[reload,navigate])
     useEffect(()=>{
         if(orders.length>0){
             setReversedOrders(orders.reverse())

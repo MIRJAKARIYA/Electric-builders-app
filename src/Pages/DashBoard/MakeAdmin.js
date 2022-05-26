@@ -7,7 +7,12 @@ const MakeAdmin = () => {
   const [reload, setReload] = useState(false);
   const [makeAdminModal, setMakeAdminModal] = useState(null);
   useEffect(()=>{
-    fetch('http://localhost:5000/allUsers')
+    fetch('http://localhost:5000/allUsers',{
+      method:'GET',
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      }
+    })
     .then(res => res.json())
     .then(data => setUsers(data));
   },[reload])

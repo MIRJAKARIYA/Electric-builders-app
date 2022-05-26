@@ -109,12 +109,9 @@ const Login = () => {
           <div className="divider mt-[-15px] w-[95%] mx-auto">OR</div>
           <SocialLogin></SocialLogin>
         </div>
-        <Link
-          to="/register"
-          className="block text-center mt-3 underline text-blue-700"
-        >
-          create a new account...
-        </Link>
+        <p className="block text-center mt-3 underline text-blue-700">
+          <Link to="/register">create a new account...</Link>
+        </p>
       </div>
     </>
   );

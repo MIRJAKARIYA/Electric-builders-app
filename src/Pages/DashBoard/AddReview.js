@@ -1,12 +1,15 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 
 const AddReview = () => {
   const [user] = useAuthState(auth);
   const [rating, setRating] = useState(1);
+  const navigate = useNavigate();
 
   const { register, handleSubmit,reset } = useForm();
 
@@ -26,10 +29,18 @@ const AddReview = () => {
       method:'POST',
       headers:{
         'content-type':'application/json',
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
       },
       body:JSON.stringify(reviewData)
     })
-    .then(res=>res.json())
+.then(res=>{
+  if (res.status === 401 || res.status === 403) {
+    signOut(auth);
+    localStorage.removeItem("ACCESS_TOKEN");
+    navigate("/home");
+  }
+ return res.json()
+})
     .then(data=> {
       if(data.acknowledged){
         toast.success('Review added successfully 🙂')

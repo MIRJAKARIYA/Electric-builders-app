@@ -1,11 +1,14 @@
+import { signOut } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { AiFillWarning } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const OrderCancelModal = ({ modalData, setModalData, setReload, reload }) => {
   const [isDisable, setIsDisable] = useState(true);
   const cancelRef = useRef();
-
+  const navigate = useNavigate();
   const handleDisable = (e) => {
     const isCancel = e.target.value;
     if (isCancel === "CANCEL") {
@@ -18,13 +21,24 @@ const OrderCancelModal = ({ modalData, setModalData, setReload, reload }) => {
   const handleCancel = () => {
     fetch(`http://localhost:5000/purchasedSingle/${modalData}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      },
     })
-      .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("ACCESS_TOKEN");
+        navigate("/home");
+      }
+      return res.json();
+    })
       .then((data) => {
         if (data.acknowledged) {
-          toast.success(`Order canceled successfully`);
-          setReload(!reload);
-          setModalData("");
+            toast.success(`Order canceled successfully`);
+            setReload(!reload);
+            setModalData("");
         }
       });
   };

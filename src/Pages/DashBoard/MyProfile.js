@@ -8,6 +8,8 @@ import userThumb from '../../images/user_default/userDefault.png';
 import auth from "../../firebase.init";
 import { toast } from "react-toastify";
 import MyProfileUpdateModal from "./MyProfileUpdateModal";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
   const [user] = useAuthState(auth);
@@ -15,7 +17,7 @@ const MyProfile = () => {
   const [updateField, setUpdateField] = useState(null);
   const [reload, setReload] = useState(false);
   const [modalData, setModalData] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (user) {
       fetch(`http://localhost:5000/user?email=${user?.email}`)
@@ -30,17 +32,29 @@ const MyProfile = () => {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
         },
         body: JSON.stringify(updateField),
       })
-        .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
         .then((data) => {
-          toast.success("Info added successfully");
+          if(data.acknowledged){
+            toast.success("Info added successfully");
           setUpdateField(null);
           setReload(!reload);
+          }
+          
         });
     }
-  }, [updateField, person, reload]);
+  }, [updateField, person, reload, navigate]);
 
   const handleLinkedIn = (e) => {
     e.preventDefault();

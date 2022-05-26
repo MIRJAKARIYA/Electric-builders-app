@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="navbar max-w-[1350px] mx-auto">
       <div className="navbar-start">
-        <div className="dropdown md:hidden">
+        <div className="dropdown lg:hidden">
           <label tabIndex="0" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ const Navbar = () => {
         </div>
         <h1 className="text-2xl font-bold">Electric Manufacturer</h1>
       </div>
-      <div className="navbar-end hidden md:block">
+      <div className="navbar-end hidden lg:block">
         <div className="flex justify-end">
           <Link className="mr-6" to="/home">
             Home
@@ -71,9 +71,11 @@ const Navbar = () => {
           <Link className="mr-6" to="/myportfolio">
             My Portfolio
           </Link>
-          <Link className="mr-6" to="/dashboard">
+          {
+            user && <Link className="mr-6" to="/dashboard">
             Dashboard
           </Link>
+          }
           {
             user?<button onClick={()=>signOut(auth)}>signout</button>:<Link className="mr-6" to="/login">
             Login

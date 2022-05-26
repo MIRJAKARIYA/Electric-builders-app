@@ -22,6 +22,7 @@ import ManageAllOrders from "./Pages/DashBoard/ManageAllOrders";
 import ManageTools from "./Pages/DashBoard/ManageTools";
 import AddTool from "./Pages/DashBoard/AddTool";
 import MakeAdmin from "./Pages/DashBoard/MakeAdmin";
+import RequireAdmin from "./Pages/Login/RequireAdmin";
 
 function App() {
   useEffect(() => {
@@ -50,14 +51,44 @@ function App() {
           }
         ></Route>
 
-        <Route path="/dashboard" element={<DashBoard></DashBoard>}>
-            <Route index element={<MyOrders></MyOrders>}></Route>
-            <Route path="addareview" element={<AddReview></AddReview>}></Route>
-            <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
-            <Route path="manageorders" element={<ManageAllOrders></ManageAllOrders>}></Route>
-            <Route path="managetools" element={<ManageTools></ManageTools>}></Route>
-            <Route path="addtool" element={<AddTool></AddTool>}></Route>
-            <Route path="makeadmin" element={<MakeAdmin></MakeAdmin>}></Route>
+        <Route path="/dashboard" element={
+          <RequireAuth>
+            <DashBoard></DashBoard>
+          </RequireAuth>
+        }>
+            <Route index element={
+              <RequireAuth>
+                <MyOrders></MyOrders>
+              </RequireAuth>
+            }></Route>
+            <Route path="addareview" element={
+              <RequireAuth>
+                <AddReview></AddReview>
+              </RequireAuth>
+            }></Route>
+            <Route path="myprofile" element={
+              <RequireAuth>
+                <MyProfile></MyProfile>
+              </RequireAuth>
+            }></Route>
+            <Route path="manageorders" element={
+              <RequireAdmin>
+                <ManageAllOrders></ManageAllOrders>
+              </RequireAdmin>
+            }></Route>
+            <Route path="managetools" element={
+              <RequireAdmin>
+                <ManageTools></ManageTools>
+              </RequireAdmin>
+            }></Route>
+            <Route path="addtool" element={<RequireAdmin>
+              <AddTool></AddTool>
+            </RequireAdmin>}></Route>
+            <Route path="makeadmin" element={
+              <RequireAdmin>
+                <MakeAdmin></MakeAdmin>
+              </RequireAdmin>
+            }></Route>
         </Route>
         <Route path="/payment/:productId" element={<Payment></Payment>}></Route>
 

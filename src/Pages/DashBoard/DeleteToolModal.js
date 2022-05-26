@@ -1,9 +1,13 @@
+import { signOut } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { AiFillWarning } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const DeleteToolModal = ({reload, setReload, deleteModal, setDeleteModal}) => {
     console.log(deleteModal)
+    const navigate = useNavigate();
 
     const [isDisable, setIsDisable] = useState(true);
   const cancelRef = useRef();
@@ -20,8 +24,19 @@ const DeleteToolModal = ({reload, setReload, deleteModal, setDeleteModal}) => {
   const handleCancel = () => {
     fetch(`http://localhost:5000/deleteTool/${deleteModal}`, {
       method: "DELETE",
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+      }
     })
-      .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      if (res.status === 401 || res.status === 403) {
+        signOut(auth);
+        localStorage.removeItem("ACCESS_TOKEN");
+        navigate("/home");
+      }
+      return res.json();
+    })
       .then((data) => {
         if (data.acknowledged) {
           toast.warning(`Tool has been deleted`);
