@@ -1,11 +1,17 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import noInfo from "../../images/not_found/notfound.jpg";
 
 const NotFound = () => {
-    return (
-        <div>
-            <h1>404 not found</h1>
-        </div>
-    );
+    const navigate = useNavigate();
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <div className="w-[40%]">
+        <img src={noInfo} className="h-full w-full" alt="" />
+        <button onClick={()=>navigate('/')} className="btn btn-xs btn-primary mx-auto block mt-2">Back to home</button>
+      </div>
+    </div>
+  );
 };
 
 export default NotFound;
