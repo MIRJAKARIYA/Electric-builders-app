@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsReverseLayoutSidebarInsetReverse } from "react-icons/bs";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
@@ -8,9 +8,11 @@ import { signOut } from "firebase/auth";
 const Navbar = () => {
   const location = useLocation();
   const [user] = useAuthState(auth);
+  const navigate = useNavigate()
 
   return (
-    <div className="navbar max-w-[1350px] mx-auto">
+    <div className="bg-slate-600 sticky top-0 z-20">
+      <div className="navbar max-w-[1350px] mx-auto text-white">
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
           <label tabIndex="0" className="btn btn-ghost btn-circle">
@@ -39,45 +41,45 @@ const Navbar = () => {
             <li>
               <Link to="/blogs">Blogs</Link>
             </li>
-            <li>
+            {
+              user && <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
+            }
             <li>
               <Link to="/myportfolio">My Portfolio</Link>
             </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
             {
               user?<div>
-                <button onClick={()=>signOut(auth)}>Logout</button>
-                <p>{user.displayName}</p>
+                <p className="ml-4 text-primary font-semibold">{user.displayName}</p>
+                <button className="ml-4 btn btn-xs mt-2" onClick={()=>signOut(auth)}>Logout</button>
+                
               </div>:<li>
               <Link to="/login">Login</Link>
             </li>
             }
           </ul>
         </div>
-        <h1 className="text-2xl font-bold">Electric Manufacturer</h1>
+        <h1 className="text-2xl font-bold btn btn-ghost" onClick={()=>navigate('/home')}>Electric builders</h1>
       </div>
       <div className="navbar-end hidden lg:block">
         <div className="flex justify-end">
-          <Link className="mr-6" to="/home">
+          <Link to="/home" className='mr-6 btn btn-xs hover:bg-warning hover:text-black'>
             Home
           </Link>
-          <Link className="mr-6" to="/blogs">
+          <Link className="mr-6 btn btn-xs hover:bg-warning hover:text-black" to="/blogs">
             Blogs
           </Link>
-          <Link className="mr-6" to="/myportfolio">
+          <Link className="mr-6 btn btn-xs hover:bg-warning hover:text-black" to="/myportfolio">
             My Portfolio
           </Link>
           {
-            user && <Link className="mr-6" to="/dashboard">
+            user && <Link className="mr-6 btn btn-xs hover:bg-warning hover:text-black" to="/dashboard">
             Dashboard
           </Link>
           }
           {
-            user?<button onClick={()=>signOut(auth)}>signout</button>:<Link className="mr-6" to="/login">
+            user?<button onClick={()=>signOut(auth)}>Logout</button>:<Link className="mr-6 btn btn-xs hover:bg-warning hover:text-black" to="/login">
             Login
           </Link>
           }
@@ -92,6 +94,7 @@ const Navbar = () => {
           <BsReverseLayoutSidebarInsetReverse />
         </label>
       )}
+    </div>
     </div>
   );
 };
