@@ -11,7 +11,7 @@ const AddReview = () => {
   const [rating, setRating] = useState(1);
   const navigate = useNavigate();
 
-  const { register, handleSubmit,reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
     const time = new Date().toLocaleTimeString();
@@ -23,30 +23,30 @@ const AddReview = () => {
       reviewDate: date,
       reviewTime: time,
       rating: rating,
-      photo:user.photoURL
-    }
-    fetch('http://localhost:5000/review',{
-      method:'POST',
-      headers:{
-        'content-type':'application/json',
+      photo: user.photoURL,
+    };
+    fetch("https://pure-mountain-19265.herokuapp.com/review", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
       },
-      body:JSON.stringify(reviewData)
+      body: JSON.stringify(reviewData),
     })
-.then(res=>{
-  if (res.status === 401 || res.status === 403) {
-    signOut(auth);
-    localStorage.removeItem("ACCESS_TOKEN");
-    navigate("/home");
-  }
- return res.json()
-})
-    .then(data=> {
-      if(data.acknowledged){
-        toast.success('Review added successfully 🙂')
-      }
-    })
-    reset()
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Review added successfully 🙂");
+        }
+      });
+    reset();
   };
 
   const handleChecked = (value) => {

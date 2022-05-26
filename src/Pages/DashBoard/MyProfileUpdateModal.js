@@ -27,7 +27,6 @@ const MyProfileUpdateModal = ({
 
     formData.append("image", profilePicture);
 
-    console.log(profilePicture);
 
     const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
     fetch(url, {
@@ -36,8 +35,7 @@ const MyProfileUpdateModal = ({
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log("imgbb", result);
-        fetch(`http://localhost:5000/profile/${profile}`, {
+        fetch(`https://pure-mountain-19265.herokuapp.com/profile/${profile}`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
@@ -52,7 +50,6 @@ const MyProfileUpdateModal = ({
           }),
         })
           .then((res) => {
-            console.log(res);
             if (res.status === 401 || res.status === 403) {
               signOut(auth);
               localStorage.removeItem("ACCESS_TOKEN");
@@ -61,7 +58,6 @@ const MyProfileUpdateModal = ({
             return res.json();
           })
           .then((data) => {
-            console.log(data);
             if (data.acknowledged) {
               setReload(!reload);
               setModalData(null);

@@ -6,45 +6,52 @@ import auth from "../../firebase.init";
 
 const DeliverModal = ({ deliverModal, setDeliverModal, reload, setReload }) => {
   const [order, setOrder] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:5000/purchasedSingle/${deliverModal}`)
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${deliverModal}`
+    )
       .then((res) => res.json())
       .then((data) => setOrder(data));
   }, [deliverModal]);
 
   const handleDeliver = () => {
-    fetch(`http://localhost:5000/deliverConfirm/${deliverModal}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ delivery: "shipped" }),
-    })
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/deliverConfirm/${deliverModal}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ delivery: "shipped" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:5000/getTool?toolName=${order.product}`, {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-          },
-          body: JSON.stringify({ quantity: order.quantity }),
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.status === 401 || res.status === 403) {
-            signOut(auth);
-            localStorage.removeItem("ACCESS_TOKEN");
-            navigate("/home");
+        fetch(
+          `https://pure-mountain-19265.herokuapp.com/getTool?toolName=${order.product}`,
+          {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+            },
+            body: JSON.stringify({ quantity: order.quantity }),
           }
-          return res.json();
-        })
+        )
+          .then((res) => {
+            if (res.status === 401 || res.status === 403) {
+              signOut(auth);
+              localStorage.removeItem("ACCESS_TOKEN");
+              navigate("/home");
+            }
+            return res.json();
+          })
           .then((data) => {
-            if (data.acknowledged){
-              setDeliverModal(null)
-              setReload(!reload)
-              toast.success('Order shipped successfully')
+            if (data.acknowledged) {
+              setDeliverModal(null);
+              setReload(!reload);
+              toast.success("Order shipped successfully");
             }
           });
       });

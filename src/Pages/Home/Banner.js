@@ -48,7 +48,7 @@ const Banner = () => {
             </div>
             <div className="md:w-[60%] w-full">
               <h1 className="md:text-5xl text-2xl font-bold">Shipment is available!!!</h1>
-              <p className="py-3">
+              <p className="py-3 font-semibold text-lg">
                 Purchase our products and get the shipment anywhere in the world.
               </p>
               <button className="btn btn-primary">Get Started</button>
@@ -65,8 +65,8 @@ const Banner = () => {
               />
             </div>
             <div className="md:w-[60%] w-full">
-              <h1 className="text-5xl font-bold">10% discount!</h1>
-              <p className="py-6">
+              <h1 className="md:text-5xl text-2xl font-bold">10% discount!</h1>
+              <p className="py-3 font-semibold text-lg">
                 Order now and get 10% discount on delivery charge!!!
               </p>
               <button className="btn btn-primary">Get Started</button>

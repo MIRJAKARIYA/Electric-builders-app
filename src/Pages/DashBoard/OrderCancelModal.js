@@ -19,26 +19,28 @@ const OrderCancelModal = ({ modalData, setModalData, setReload, reload }) => {
   };
 
   const handleCancel = () => {
-    fetch(`http://localhost:5000/purchasedSingle/${modalData}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-      },
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.status === 401 || res.status === 403) {
-        signOut(auth);
-        localStorage.removeItem("ACCESS_TOKEN");
-        navigate("/home");
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${modalData}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+        },
       }
-      return res.json();
-    })
+    )
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.acknowledged) {
-            toast.success(`Order canceled successfully`);
-            setReload(!reload);
-            setModalData("");
+          toast.success(`Order canceled successfully`);
+          setReload(!reload);
+          setModalData("");
         }
       });
   };

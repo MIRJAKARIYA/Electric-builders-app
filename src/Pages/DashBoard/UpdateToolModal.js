@@ -15,16 +15,18 @@ const UpdateToolModal = ({
       minimumOrderQuantity: parseInt(data.minimumOrderQuantity),
       price: parseInt(data.price),
     };
-    console.log(updateData);
 
-    fetch(`http://localhost:5000/updateTool/${updateModal}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/updateTool/${updateModal}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+        },
+        body: JSON.stringify(updateData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {

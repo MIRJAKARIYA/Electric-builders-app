@@ -13,28 +13,48 @@ const Payment = () => {
     )
   );
   useEffect(() => {
-    fetch(`http://localhost:5000/purchasedSingle/${productId}`)
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${productId}`
+    )
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [productId]);
 
   return (
     <>
-    <div className="max-w-[500px] mx-auto mt-20 p-10 rounded-lg bg-slate-800">
-      <h1 className="text-white"><span className="font-semibold text-yellow-500">PAY FOR:</span> {product?.product}</h1>
-      <p className="text-white"><span className="font-semibold text-yellow-500">Price:</span> $ {product?.price}</p>
-      <p className="text-white"><span className="font-semibold text-yellow-500">Quantity:</span> {product?.quantity}</p>
-      <p className="text-white"><span className="font-semibold text-yellow-500">Buyer:</span> {product?.buyer}</p>
-      <p className="text-white"><span className="font-semibold text-yellow-500">Buyer Email:</span> {product?.buyerEamil}</p>
-      <p className="text-white"><span className="font-semibold text-yellow-500">Phone:</span> {product?.phone}</p>
-      <div className="card w-96  bg-base-100 mx-auto shadow-xl mt-5">
-        <div className="card-body">
-          <Elements stripe={stripePromise}>
-            <CheckoutForm product={product} />
-          </Elements>
+      <div className="max-w-[500px] mx-auto mt-20 p-10 rounded-lg bg-slate-800">
+        <h1 className="text-white">
+          <span className="font-semibold text-yellow-500">PAY FOR:</span>{" "}
+          {product?.product}
+        </h1>
+        <p className="text-white">
+          <span className="font-semibold text-yellow-500">Price:</span> ${" "}
+          {product?.price}
+        </p>
+        <p className="text-white">
+          <span className="font-semibold text-yellow-500">Quantity:</span>{" "}
+          {product?.quantity}
+        </p>
+        <p className="text-white">
+          <span className="font-semibold text-yellow-500">Buyer:</span>{" "}
+          {product?.buyer}
+        </p>
+        <p className="text-white">
+          <span className="font-semibold text-yellow-500">Buyer Email:</span>{" "}
+          {product?.buyerEamil}
+        </p>
+        <p className="text-white">
+          <span className="font-semibold text-yellow-500">Phone:</span>{" "}
+          {product?.phone}
+        </p>
+        <div className="card w-96  bg-base-100 mx-auto shadow-xl mt-5">
+          <div className="card-body">
+            <Elements stripe={stripePromise}>
+              <CheckoutForm product={product} />
+            </Elements>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

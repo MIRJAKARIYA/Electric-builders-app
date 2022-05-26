@@ -1,38 +1,35 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
 
-const CheckoutForm = ({product}) => {
+const CheckoutForm = ({ product }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
-  const [clientSecret, setClientSecret] = useState('');
-  const [success, setSuccess] = useState('');
-  const [proccessing, setProccessing] = useState(false)
-  const [transactionId, setTransactionId] = useState('')
-  const {price,buyer,_id,status} = product;
+  const [clientSecret, setClientSecret] = useState("");
+  const [success, setSuccess] = useState("");
+  const [proccessing, setProccessing] = useState(false);
+  const [transactionId, setTransactionId] = useState("");
+  const { price, buyer, _id, status } = product;
 
-  useEffect(()=>{
-    if(price > 999999.99){
-      setCardError('Stripe payment cannot exceed $999999.99')
-    }
-    else{
-      fetch('http://localhost:5000/create-payment-intent',{
-        method:'POST',
-        headers:{
-            'content-type':'application/json',
+  useEffect(() => {
+    if (price > 999999.99) {
+      setCardError("Stripe payment cannot exceed $999999.99");
+    } else {
+      fetch("https://pure-mountain-19265.herokuapp.com/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
         },
-        body:JSON.stringify({price:price})
-    })
-    .then(res=> res.json())
-    .then(data=>{
-        if(data?.clientSecret){
-            console.log(data.clientSecret)
+        body: JSON.stringify({ price: price }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.clientSecret) {
             setClientSecret(data.clientSecret);
-        }
-    })
+          }
+        });
     }
-
-  },[price]);
+  }, [price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,56 +45,49 @@ const CheckoutForm = ({product}) => {
       card,
     });
 
-    setCardError(error?.message || '');
-    setSuccess('');
+    setCardError(error?.message || "");
+    setSuccess("");
     setProccessing(true);
 
     //confirm card payment
-    const {paymentIntent, error:intentError} = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-          payment_method: {
-            card: card,
-            billing_details: {
-              name: buyer,
-            },
+    const { paymentIntent, error: intentError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: buyer,
           },
         },
-      );
+      });
 
+    if (intentError) {
+      setCardError(intentError?.message);
+      setProccessing(false);
+    } else {
+      setCardError("");
+      setTransactionId(paymentIntent.id);
+      setSuccess("Congrates! your payment is completed");
 
-      if(intentError){
-          setCardError(intentError?.message)
-          setProccessing(false)
-
-      }
-      else{
-          setCardError('');
-          setTransactionId(paymentIntent.id)
-          console.log(paymentIntent)
-          setSuccess('Congrates! your payment is completed');
-
-
-          //update data in backend
-          const payment ={
-            transactionId:paymentIntent.id,
-            delivery:'pending'
-          }
-          fetch(`http://localhost:5000/purchasedSingle/${_id}`,{
-            method:'PATCH',
-            headers:{
-              'content-type':'application/json'
-            },
-            body:JSON.stringify(payment)
-
-          })
-          .then(res=>res.json())
-          .then(data=>{
-            setProccessing(false);
-
-          })
-
-      }
+      //update data in backend
+      const payment = {
+        transactionId: paymentIntent.id,
+        delivery: "pending",
+      };
+      fetch(
+        `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(payment),
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setProccessing(false);
+        });
+    }
   };
 
   return (
@@ -122,32 +112,40 @@ const CheckoutForm = ({product}) => {
         <button
           type="submit"
           className="btn btn-success btn-sm mt-4"
-          disabled={!stripe || !clientSecret || success || cardError || status === 'paid'}
+          disabled={
+            !stripe ||
+            !clientSecret ||
+            success ||
+            cardError ||
+            status === "paid"
+          }
         >
           Pay
         </button>
       </form>
-      {
-          cardError && <p className="text-red-500">{cardError}</p>
-      }
-      {
-        proccessing && <p>loading...</p>
-      }
-      {
-          success && <div>
+      {cardError && <p className="text-red-500">{cardError}</p>}
+      {proccessing && <p>loading...</p>}
+      {success && (
+        <div>
+          <p className="text-green-500">{success}</p>
 
-            <p className="text-green-500">{success}</p>
-            
-            <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span></p>
-          </div>
-      }
-      {
-              product.transactionId && <div>
-                <p className="text-green-500">Your payment is completed.</p>
-                <p>Your transaction Id: <span className="text-orange-500 font-bold">{product.transactionId}</span></p>
-              </div>
-
-            }
+          <p>
+            Your transaction Id:{" "}
+            <span className="text-orange-500 font-bold">{transactionId}</span>
+          </p>
+        </div>
+      )}
+      {product.transactionId && (
+        <div>
+          <p className="text-green-500">Your payment is completed.</p>
+          <p>
+            Your transaction Id:{" "}
+            <span className="text-orange-500 font-bold">
+              {product.transactionId}
+            </span>
+          </p>
+        </div>
+      )}
     </>
   );
 };

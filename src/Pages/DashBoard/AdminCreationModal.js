@@ -14,14 +14,17 @@ const AdminCreationModal = ({
   const navigate = useNavigate();
 
   const handleMakeAdmin = () => {
-    fetch(`http://localhost:5000/profile/${makeAdminModal._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-      },
-      body: JSON.stringify({ role: "admin" }),
-    })
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/profile/${makeAdminModal._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+        },
+        body: JSON.stringify({ role: "admin" }),
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           signOut(auth);

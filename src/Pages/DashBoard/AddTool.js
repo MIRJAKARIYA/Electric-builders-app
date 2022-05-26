@@ -15,14 +15,6 @@ const AddTool = () => {
     const availableQuantity = parseInt(data.availableQuantity);
     const price = parseInt(data.price);
     const img = data.toolImg;
-    console.log(
-      toolName,
-      description,
-      minimumOrderQuantity,
-      availableQuantity,
-      price,
-      img
-    );
     const toolData = {
       toolName,
       description,
@@ -31,7 +23,7 @@ const AddTool = () => {
       price,
       img,
     };
-    fetch("http://localhost:5000/addTool", {
+    fetch("https://pure-mountain-19265.herokuapp.com/addTool", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -44,15 +36,13 @@ const AddTool = () => {
           signOut(auth);
           localStorage.removeItem("ACCESS_TOKEN");
           navigate("/home");
-        } 
-         return res.json();
-   
+        }
+        return res.json();
       })
       .then((data) => {
-        if(data.acknowledged){
+        if (data.acknowledged) {
           toast.success("Tool added successfully");
         }
-        
       });
     reset();
   };

@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { MdOutlineSystemUpdateAlt, MdEmail } from "react-icons/md";
 import { BsTelephoneXFill, BsLinkedin } from "react-icons/bs";
 import { ImLocation2 } from "react-icons/im";
-import userThumb from '../../images/user_default/userDefault.png';
+import userThumb from "../../images/user_default/userDefault.png";
 
 import auth from "../../firebase.init";
 import { toast } from "react-toastify";
@@ -20,7 +20,9 @@ const MyProfile = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/user?email=${user?.email}`)
+      fetch(
+        `https://pure-mountain-19265.herokuapp.com/user?email=${user?.email}`
+      )
         .then((res) => res.json())
         .then((data) => setPerson(data));
     }
@@ -28,7 +30,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (updateField) {
-      fetch(`http://localhost:5000/profile/${person._id}`, {
+      fetch(`https://pure-mountain-19265.herokuapp.com/profile/${person._id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -36,22 +38,20 @@ const MyProfile = () => {
         },
         body: JSON.stringify(updateField),
       })
-      .then((res) => {
-        console.log(res);
-        if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          localStorage.removeItem("ACCESS_TOKEN");
-          navigate("/home");
-        }
-        return res.json();
-      })
-        .then((data) => {
-          if(data.acknowledged){
-            toast.success("Info added successfully");
-          setUpdateField(null);
-          setReload(!reload);
+        .then((res) => {
+          if (res.status === 401 || res.status === 403) {
+            signOut(auth);
+            localStorage.removeItem("ACCESS_TOKEN");
+            navigate("/home");
           }
-          
+          return res.json();
+        })
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Info added successfully");
+            setUpdateField(null);
+            setReload(!reload);
+          }
         });
     }
   }, [updateField, person, reload, navigate]);
@@ -84,13 +84,18 @@ const MyProfile = () => {
         </h1>
         <div className="w-[200px] h-[200px] border-2 border-yellow-600 rounded-full p-2 mx-auto">
           <img
-            src={person.profilePicture?person.profilePicture:userThumb}
+            src={person.profilePicture ? person.profilePicture : userThumb}
             className="w-full h-full rounded-full"
             alt=""
           />
         </div>
         <div className="mt-4">
-          <p className="text-white text-xl text-center">{user?.displayName} <span className="text-[11px] text-warning">{person?.role==='admin'?'admin':'user'}</span></p>
+          <p className="text-white text-xl text-center">
+            {user?.displayName}{" "}
+            <span className="text-[11px] text-warning">
+              {person?.role === "admin" ? "admin" : "user"}
+            </span>
+          </p>
           <div className="flex justify-around mt-4">
             <div className="">
               <div className="flex items-center">

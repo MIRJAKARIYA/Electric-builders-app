@@ -13,46 +13,42 @@ const ManageTools = () => {
   const [updateModal, setUpdateModal] = useState(null);
   const [deleteModal, setDeleteModal] = useState("");
   const navigate = useNavigate();
-  console.log(deleteModal)
   useEffect(() => {
-    fetch("http://localhost:5000/adminGetTools",{
-      method:'GET',
-      headers:{
+    fetch("https://pure-mountain-19265.herokuapp.com/adminGetTools", {
+      method: "GET",
+      headers: {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-      }
+      },
     })
-    .then((res) => {
-      console.log(res);
-      if (res.status === 401 || res.status === 403) {
-        signOut(auth);
-        localStorage.removeItem("ACCESS_TOKEN");
-        navigate("/home");
-      }
-      return res.json();
-    })
-      .then((data) =>{
-        console.log(data)
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
+      .then((data) => {
 
-          setTools(data)
-
+        setTools(data);
       });
-  }, [reload,navigate]);
-  useEffect(()=>{
-    if(tools.length > 0){
-        setReversedTools(tools.reverse());
+  }, [reload, navigate]);
+  useEffect(() => {
+    if (tools.length > 0) {
+      setReversedTools(tools.reverse());
     }
-  },[tools])
+  }, [tools]);
   return (
     <>
-      <h1 className="text-center text-2xl text-red-700 font-semibold my-10">Manage Tools</h1>
+      <h1 className="text-center text-2xl text-red-700 font-semibold my-10">
+        Manage Tools
+      </h1>
       <div className="mr-auto lg:mr-0 ml-auto w-[95%] px-5">
         <div className="overflow-x-auto">
           <table className="table w-full max-w-[1200px] mx-auto">
             <thead>
               <tr>
-                <th>
-                  Thumb
-                </th>
+                <th>Thumb</th>
                 <th>Tool</th>
                 <th>Minimum Order Quantity</th>
                 <th>Available Quantity</th>
@@ -61,18 +57,33 @@ const ManageTools = () => {
               </tr>
             </thead>
             <tbody>
-                {
-                    reversedTools?.map(tool => <SingleManageTool key={tool._id} setDeleteModal={setDeleteModal} setUpdateModal={setUpdateModal} tool={tool}></SingleManageTool>)
-                }
+              {reversedTools?.map((tool) => (
+                <SingleManageTool
+                  key={tool._id}
+                  setDeleteModal={setDeleteModal}
+                  setUpdateModal={setUpdateModal}
+                  tool={tool}
+                ></SingleManageTool>
+              ))}
             </tbody>
           </table>
         </div>
-        {
-            updateModal && <UpdateToolModal reload={reload} setReload={setReload} updateModal={updateModal} setUpdateModal={setUpdateModal}></UpdateToolModal>
-        }
-        {
-            deleteModal && <DeleteToolModal deleteModal={deleteModal} setDeleteModal={setDeleteModal} reload={reload} setReload={setReload}></DeleteToolModal>
-        }
+        {updateModal && (
+          <UpdateToolModal
+            reload={reload}
+            setReload={setReload}
+            updateModal={updateModal}
+            setUpdateModal={setUpdateModal}
+          ></UpdateToolModal>
+        )}
+        {deleteModal && (
+          <DeleteToolModal
+            deleteModal={deleteModal}
+            setDeleteModal={setDeleteModal}
+            reload={reload}
+            setReload={setReload}
+          ></DeleteToolModal>
+        )}
       </div>
     </>
   );

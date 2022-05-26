@@ -13,7 +13,7 @@ const Purchase = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getTool/${toolId}`)
+    fetch(`https://pure-mountain-19265.herokuapp.com/getTool/${toolId}`)
       .then((res) => res.json())
       .then((data) => setTool(data));
   }, [toolId]);
@@ -52,7 +52,7 @@ const Purchase = () => {
       buyer: user.displayName,
       buyerEamil: user.email,
       phone: phone,
-      address:address,
+      address: address,
       purchaseDate: new Date().toLocaleDateString("en-us", {
         weekday: "long",
         year: "numeric",
@@ -62,27 +62,24 @@ const Purchase = () => {
       status: "unpaid",
     };
 
-    fetch("http://localhost:5000/purchased", {
+    fetch("https://pure-mountain-19265.herokuapp.com/purchased", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        authorization:`Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
+        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
       },
       body: JSON.stringify(purchaseData),
     })
-    .then((res) => {
-      console.log(res);
-      if (res.status === 401 || res.status === 403) {
-        signOut(auth);
-        localStorage.removeItem("ACCESS_TOKEN");
-        navigate("/home");
-      }
-      return res.json();
-    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
       .then((data) => {
-        if(data.acknowledged)
-        navigate(`/payment/${data.insertedId}`)
-        console.log(data)
+        if (data.acknowledged) navigate(`/payment/${data.insertedId}`);
       });
   };
 
@@ -171,21 +168,21 @@ const Purchase = () => {
                       />
                     </div>
                     <div>
-                    <span className="text-sm font-semibold ml-1">
-                      Enter quantity:
-                    </span>
-                    <input
-                      min={0}
-                      type="number"
-                      placeholder=""
-                      name="quantity"
-                      onChange={handleQuantity}
-                      value={minimuQuantity}
-                      className="input input-bordered input-primary w-full max-w-xs"
-                    />
-                    <small className="text-red-600 font-semibold">
-                      {purchaseError}
-                    </small>
+                      <span className="text-sm font-semibold ml-1">
+                        Enter quantity:
+                      </span>
+                      <input
+                        min={0}
+                        type="number"
+                        placeholder=""
+                        name="quantity"
+                        onChange={handleQuantity}
+                        value={minimuQuantity}
+                        className="input input-bordered input-primary w-full max-w-xs"
+                      />
+                      <small className="text-red-600 font-semibold">
+                        {purchaseError}
+                      </small>
                     </div>
                   </div>
                   <div className="flex-1 mt-2">
@@ -203,16 +200,15 @@ const Purchase = () => {
                   </div>
                 </div>
 
-                  <div className="mt-2 text-center">
-                    <button
-                      type="submit"
-                      disabled={purchaseError ? true : false}
-                      className="btn btn-primary w-full max-w-xs"
-                    >
-                      Purchase
-                    </button>
-                  </div>
-
+                <div className="mt-2 text-center">
+                  <button
+                    type="submit"
+                    disabled={purchaseError ? true : false}
+                    className="btn btn-primary w-full max-w-xs"
+                  >
+                    Purchase
+                  </button>
+                </div>
               </form>
             </div>
           </div>

@@ -10,53 +10,72 @@ const DeleteOrderModal = ({
   reload,
   setReload,
 }) => {
-  const {
-    buyer,
-    buyerEamil,
-    product,
-    quantity,
-    _id,
-  } = deleteModal;
+  const { buyer, buyerEamil, product, quantity, _id } = deleteModal;
   const navigate = useNavigate();
 
-  const handleCancelOrder = () =>{
-    fetch(`http://localhost:5000/deletOrder/${_id}`,{
-      method:'DELETE',
-      headers:{
+  const handleCancelOrder = () => {
+    fetch(`https://pure-mountain-19265.herokuapp.com/deletOrder/${_id}`, {
+      method: "DELETE",
+      headers: {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
-      }
+      },
     })
-    .then((res) => {
-      console.log(res);
-      if (res.status === 401 || res.status === 403) {
-        signOut(auth);
-        localStorage.removeItem("ACCESS_TOKEN");
-        navigate("/home");
-      }
-      return res.json();
-    })
-    .then(data => {
-      if(data.acknowledged){
-        setReload(!reload);
-        setDeleteModal(null);
-        toast.warning('Order canceled');
-      }
-      
-    })
-  }
-  
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.acknowledged) {
+          setReload(!reload);
+          setDeleteModal(null);
+          toast.warning("Order canceled");
+        }
+      });
+  };
+
   return (
     <>
-      <input type="checkbox" id="my-modal-order-delete" className="modal-toggle" />
+      <input
+        type="checkbox"
+        id="my-modal-order-delete"
+        className="modal-toggle"
+      />
       <div className="modal">
         <div className="modal-box text-center">
-          <h3 className="font-bold text-xl text-center">Are you Sure you want to cancel?</h3>
-          <p><span className="text-lg font-semibold text-red-700">Tool:</span> {product}</p>
-          <p><span className="text-lg font-semibold text-red-700">Buyer:</span>{buyer}</p>
-          <p><span className="text-lg font-semibold text-red-700">Buyer Email:</span> {buyerEamil}</p>
-          <p><span className="text-lg font-semibold text-red-700">Quantity:</span> {quantity}</p>
+          <h3 className="font-bold text-xl text-center">
+            Are you Sure you want to cancel?
+          </h3>
+          <p>
+            <span className="text-lg font-semibold text-red-700">Tool:</span>{" "}
+            {product}
+          </p>
+          <p>
+            <span className="text-lg font-semibold text-red-700">Buyer:</span>
+            {buyer}
+          </p>
+          <p>
+            <span className="text-lg font-semibold text-red-700">
+              Buyer Email:
+            </span>{" "}
+            {buyerEamil}
+          </p>
+          <p>
+            <span className="text-lg font-semibold text-red-700">
+              Quantity:
+            </span>{" "}
+            {quantity}
+          </p>
           <div className="modal-action flex">
-            <button className="btn btn-error flex-1" onClick={handleCancelOrder}>Cancel Order</button>
+            <button
+              className="btn btn-error flex-1"
+              onClick={handleCancelOrder}
+            >
+              Cancel Order
+            </button>
             <label htmlFor="my-modal-order-delete" className="btn flex-1">
               dont cancel
             </label>

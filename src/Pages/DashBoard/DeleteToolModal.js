@@ -5,11 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 
-const DeleteToolModal = ({reload, setReload, deleteModal, setDeleteModal}) => {
-    console.log(deleteModal)
-    const navigate = useNavigate();
+const DeleteToolModal = ({
+  reload,
+  setReload,
+  deleteModal,
+  setDeleteModal,
+}) => {
+  const navigate = useNavigate();
 
-    const [isDisable, setIsDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(true);
   const cancelRef = useRef();
 
   const handleDisable = (e) => {
@@ -22,21 +26,23 @@ const DeleteToolModal = ({reload, setReload, deleteModal, setDeleteModal}) => {
   };
 
   const handleCancel = () => {
-    fetch(`http://localhost:5000/deleteTool/${deleteModal}`, {
-      method: "DELETE",
-      headers:{
-        authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+    fetch(
+      `https://pure-mountain-19265.herokuapp.com/deleteTool/${deleteModal}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+        },
       }
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.status === 401 || res.status === 403) {
-        signOut(auth);
-        localStorage.removeItem("ACCESS_TOKEN");
-        navigate("/home");
-      }
-      return res.json();
-    })
+    )
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          signOut(auth);
+          localStorage.removeItem("ACCESS_TOKEN");
+          navigate("/home");
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.acknowledged) {
           toast.warning(`Tool has been deleted`);
@@ -46,9 +52,13 @@ const DeleteToolModal = ({reload, setReload, deleteModal, setDeleteModal}) => {
       });
   };
 
-    return (
-        <>
-            <input type="checkbox" id="my-modal-tool-delete" className="modal-toggle" />
+  return (
+    <>
+      <input
+        type="checkbox"
+        id="my-modal-tool-delete"
+        className="modal-toggle"
+      />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <div className="text-9xl flex justify-center text-red-700">
@@ -74,14 +84,17 @@ const DeleteToolModal = ({reload, setReload, deleteModal, setDeleteModal}) => {
             >
               YES delete
             </button>
-            <label htmlFor="my-modal-tool-delete" className="btn btn-primary flex-1">
+            <label
+              htmlFor="my-modal-tool-delete"
+              className="btn btn-primary flex-1"
+            >
               Don't delete
             </label>
           </div>
         </div>
       </div>
-        </>
-    );
+    </>
+  );
 };
 
 export default DeleteToolModal;

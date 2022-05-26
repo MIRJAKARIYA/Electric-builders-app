@@ -48,7 +48,6 @@ const Register = () => {
   }, [token, navigate]);
 
   const passValidate = (e) => {
-    console.log(e.target.value);
     const password = e.target.value;
 
     //checking if the password has at least one number
@@ -92,7 +91,6 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const name = data.name;
-    console.log(name)
     const password = passRef.current.value;
     setPassError(false);
     setConfirmPassError(false);
