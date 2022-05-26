@@ -20,7 +20,6 @@ const MakeAdmin = () => {
             <thead>
               <tr>
                 <th></th>
-                <th>User</th>
                 <th>Email</th>
                 <th>Role</th>
               </tr>

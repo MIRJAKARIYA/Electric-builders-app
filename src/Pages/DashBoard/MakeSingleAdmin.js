@@ -1,11 +1,10 @@
 import React from 'react';
 
 const MakeSingleAdmin = ({user,setMakeAdminModal}) => {
-    const {email, name} = user;
+    const {email} = user;
     return (
         <tr>
             <th></th>
-            <td>{name}</td>
             <td>{email}</td>
             <td>
                 {

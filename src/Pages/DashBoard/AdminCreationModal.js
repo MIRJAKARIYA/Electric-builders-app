@@ -26,10 +26,9 @@ const AdminCreationModal = ({makeAdminModal, setMakeAdminModal, reload, setReloa
           <h3 class="font-bold text-lg">
             Are you sure you want make the person <span className="text-red-700">Admin</span>?
           </h3>
-          <p className="mt-4 font-semibold"><span className="text-primary font-bold">Name:</span> {makeAdminModal.name}</p>
           <p className="font-semibold"><span className="text-primary font-bold">Email:</span> {makeAdminModal.email}</p>
           <p class="pt-4 pb-2 font-semibold">
-            <span className="text-red-700 font-bold">{makeAdminModal.name}</span> will have access to:
+            <span className="text-red-700 font-bold">{makeAdminModal.email}</span> will have access to:
           </p>
           <div className="text-red-700 font-semibold flex items-center"><p className="text-primary"><BsArrowRightCircleFill /></p><p className="ml-1">Manage All Orders</p></div>
           <div className="text-red-700 font-semibold flex items-center"><p className="text-primary"><BsArrowRightCircleFill /></p><p className="ml-1">Manage Tools</p></div>
