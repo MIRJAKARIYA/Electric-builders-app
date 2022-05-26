@@ -95,7 +95,7 @@ const Login = () => {
               </small>
               <p
                 className="ml-auto text-blue-700 underline"
-                onClick={handleForgotPassword}
+                onClick={handleForgotPassword} style={{cursor:'pointer'}}
               >
                 forgot password?
               </p>

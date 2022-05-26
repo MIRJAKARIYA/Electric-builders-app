@@ -90,7 +90,11 @@ function App() {
               </RequireAdmin>
             }></Route>
         </Route>
-        <Route path="/payment/:productId" element={<Payment></Payment>}></Route>
+        <Route path="/payment/:productId" element={
+          <RequireAuth>
+            <Payment></Payment>
+          </RequireAuth>
+        }></Route>
 
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>

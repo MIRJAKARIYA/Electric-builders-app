@@ -92,6 +92,7 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const name = data.name;
+    console.log(name)
     const password = passRef.current.value;
     setPassError(false);
     setConfirmPassError(false);

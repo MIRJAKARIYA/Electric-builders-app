@@ -8,6 +8,7 @@ import Tools from './Tools';
 import WhyChooseUs from './WhyChooseUs';
 
 const Home = () => {
+
     return (
         <div>
             <Banner></Banner>

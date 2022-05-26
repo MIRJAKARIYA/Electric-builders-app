@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import SingleTool from "./SingleTool";
 import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from 'react-icons/bs'
+import Loading from "../Shared/Loading";
 
 const Tools = () => {
     const [sliceCount, setSliceCount] = useState(6);
@@ -19,6 +20,9 @@ const Tools = () => {
     fetch("http://localhost:5000/getTools").then((res) => res.json())
   );
 
+  if(isLoading){
+    return <Loading></Loading>
+  }
 
 
   return (
