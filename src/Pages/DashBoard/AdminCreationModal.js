@@ -15,7 +15,7 @@ const AdminCreationModal = ({
 
   const handleMakeAdmin = () => {
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/profile/${makeAdminModal._id}`,
+      `https://electric-bulders-server.vercel.app/profile/${makeAdminModal._id}`,
       {
         method: "PATCH",
         headers: {

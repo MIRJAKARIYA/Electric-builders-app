@@ -20,7 +20,7 @@ const OrderCancelModal = ({ modalData, setModalData, setReload, reload }) => {
 
   const handleCancel = () => {
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${modalData}`,
+      `https://electric-bulders-server.vercel.app/purchasedSingle/${modalData}`,
       {
         method: "DELETE",
         headers: {

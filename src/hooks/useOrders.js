@@ -7,7 +7,7 @@ const useOrders = (query, reload) => {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`https://pure-mountain-19265.herokuapp.com/purchased?${query}`, {
+    fetch(`https://electric-bulders-server.vercel.app/purchased?${query}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",

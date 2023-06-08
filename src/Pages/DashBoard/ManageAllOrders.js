@@ -16,7 +16,7 @@ const ManageAllOrders = () => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    fetch(`https://pure-mountain-19265.herokuapp.com/adminPurchased?${query}`, {
+    fetch(`https://electric-bulders-server.vercel.app/adminPurchased?${query}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,

@@ -9,7 +9,7 @@ const DeliverModal = ({ deliverModal, setDeliverModal, reload, setReload }) => {
   const navigate = useNavigate();
   useEffect(() => {
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${deliverModal}`
+      `https://electric-bulders-server.vercel.app/purchasedSingle/${deliverModal}`
     )
       .then((res) => res.json())
       .then((data) => setOrder(data));
@@ -17,7 +17,7 @@ const DeliverModal = ({ deliverModal, setDeliverModal, reload, setReload }) => {
 
   const handleDeliver = () => {
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/deliverConfirm/${deliverModal}`,
+      `https://electric-bulders-server.vercel.app/deliverConfirm/${deliverModal}`,
       {
         method: "PATCH",
         headers: {
@@ -29,7 +29,7 @@ const DeliverModal = ({ deliverModal, setDeliverModal, reload, setReload }) => {
       .then((res) => res.json())
       .then((data) => {
         fetch(
-          `https://pure-mountain-19265.herokuapp.com/getTool?toolName=${order.product}`,
+          `https://electric-bulders-server.vercel.app/getTool?toolName=${order.product}`,
           {
             method: "PATCH",
             headers: {

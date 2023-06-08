@@ -20,7 +20,7 @@ const Tools = () => {
     error,
     data: tools,
   } = useQuery("tools", () =>
-    fetch("https://pure-mountain-19265.herokuapp.com/getTools").then((res) =>
+    fetch("https://electric-bulders-server.vercel.app/getTools").then((res) =>
       res.json()
     )
   );

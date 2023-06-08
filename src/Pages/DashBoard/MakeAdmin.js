@@ -11,7 +11,7 @@ const MakeAdmin = () => {
   const [makeAdminModal, setMakeAdminModal] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("https://pure-mountain-19265.herokuapp.com/allUsers", {
+    fetch("https://electric-bulders-server.vercel.app/allUsers", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,

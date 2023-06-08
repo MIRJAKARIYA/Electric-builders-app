@@ -27,7 +27,7 @@ const DeleteToolModal = ({
 
   const handleCancel = () => {
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/deleteTool/${deleteModal}`,
+      `https://electric-bulders-server.vercel.app/deleteTool/${deleteModal}`,
       {
         method: "DELETE",
         headers: {

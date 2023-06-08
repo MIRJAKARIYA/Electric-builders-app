@@ -4,7 +4,7 @@ import SingleReview from "./SingleReview";
 
 const Reviews = () => {
   const { data: reviews } = useQuery("reviews", () =>
-    fetch("https://pure-mountain-19265.herokuapp.com/review").then((res) =>
+    fetch("https://electric-bulders-server.vercel.app/review").then((res) =>
       res.json()
     )
   );

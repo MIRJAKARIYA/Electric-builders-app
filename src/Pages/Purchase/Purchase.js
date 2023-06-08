@@ -13,7 +13,7 @@ const Purchase = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://pure-mountain-19265.herokuapp.com/getTool/${toolId}`)
+    fetch(`https://electric-bulders-server.vercel.app/getTool/${toolId}`)
       .then((res) => res.json())
       .then((data) => setTool(data));
   }, [toolId]);
@@ -62,7 +62,7 @@ const Purchase = () => {
       status: "unpaid",
     };
 
-    fetch("https://pure-mountain-19265.herokuapp.com/purchased", {
+    fetch("https://electric-bulders-server.vercel.app/purchased", {
       method: "POST",
       headers: {
         "content-type": "application/json",

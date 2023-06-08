@@ -14,7 +14,7 @@ const ManageTools = () => {
   const [deleteModal, setDeleteModal] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("https://pure-mountain-19265.herokuapp.com/adminGetTools", {
+    fetch("https://electric-bulders-server.vercel.app/adminGetTools", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,

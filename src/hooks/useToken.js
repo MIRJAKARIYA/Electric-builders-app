@@ -8,7 +8,7 @@ const useToken = (user) => {
     const enteredUser = { email: email };
 
     if (email) {
-      fetch(`https://pure-mountain-19265.herokuapp.com/user/${email}`, {
+      fetch(`https://electric-bulders-server.vercel.app/user/${email}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

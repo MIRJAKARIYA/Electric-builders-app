@@ -25,7 +25,7 @@ const AddReview = () => {
       rating: rating,
       photo: user.photoURL,
     };
-    fetch("https://pure-mountain-19265.herokuapp.com/review", {
+    fetch("https://electric-bulders-server.vercel.app/review", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -15,7 +15,7 @@ const CheckoutForm = ({ product }) => {
     if (price > 999999.99) {
       setCardError("Stripe payment cannot exceed $999999.99");
     } else {
-      fetch("https://pure-mountain-19265.herokuapp.com/create-payment-intent", {
+      fetch("https://electric-bulders-server.vercel.app/create-payment-intent", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -74,7 +74,7 @@ const CheckoutForm = ({ product }) => {
         delivery: "pending",
       };
       fetch(
-        `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${_id}`,
+        `https://electric-bulders-server.vercel.app/purchasedSingle/${_id}`,
         {
           method: "PATCH",
           headers: {

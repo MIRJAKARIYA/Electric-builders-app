@@ -14,7 +14,7 @@ const DeleteOrderModal = ({
   const navigate = useNavigate();
 
   const handleCancelOrder = () => {
-    fetch(`https://pure-mountain-19265.herokuapp.com/deletOrder/${_id}`, {
+    fetch(`https://electric-bulders-server.vercel.app/deletOrder/${_id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,

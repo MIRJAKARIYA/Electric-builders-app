@@ -17,7 +17,7 @@ const UpdateToolModal = ({
     };
 
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/updateTool/${updateModal}`,
+      `https://electric-bulders-server.vercel.app/updateTool/${updateModal}`,
       {
         method: "PATCH",
         headers: {

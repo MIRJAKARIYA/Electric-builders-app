@@ -23,7 +23,7 @@ const AddTool = () => {
       price,
       img,
     };
-    fetch("https://pure-mountain-19265.herokuapp.com/addTool", {
+    fetch("https://electric-bulders-server.vercel.app/addTool", {
       method: "POST",
       headers: {
         "content-type": "application/json",

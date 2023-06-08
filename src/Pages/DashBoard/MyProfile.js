@@ -21,7 +21,7 @@ const MyProfile = () => {
   useEffect(() => {
     if (user) {
       fetch(
-        `https://pure-mountain-19265.herokuapp.com/user?email=${user?.email}`
+        `https://electric-bulders-server.vercel.app/user?email=${user?.email}`
       )
         .then((res) => res.json())
         .then((data) => setPerson(data));
@@ -30,7 +30,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (updateField) {
-      fetch(`https://pure-mountain-19265.herokuapp.com/profile/${person._id}`, {
+      fetch(`https://electric-bulders-server.vercel.app/profile/${person._id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

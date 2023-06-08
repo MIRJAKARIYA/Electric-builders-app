@@ -8,13 +8,11 @@ const Payment = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
   const [stripePromise, setStripePromise] = useState(() =>
-    loadStripe(
-      "pk_test_51L0YXaEgVD8phfXM8dDakoBtn1Khl0MXIGTMgEmOmLbjQEkziGw7qDNQdemfQxRhX1f4p7SrfRamvLAw5vrCLvH500J9J8y4ji"
-    )
+    loadStripe("pk_test_51L0YXaEgVD8phfXM8dDakoBtn1Khl0MXIGTMgEmOmLbjQEkziGw7qDNQdemfQxRhX1f4p7SrfRamvLAw5vrCLvH500J9J8y4ji")
   );
   useEffect(() => {
     fetch(
-      `https://pure-mountain-19265.herokuapp.com/purchasedSingle/${productId}`
+      `https://electric-bulders-server.vercel.app/purchasedSingle/${productId}`
     )
       .then((res) => res.json())
       .then((data) => setProduct(data));

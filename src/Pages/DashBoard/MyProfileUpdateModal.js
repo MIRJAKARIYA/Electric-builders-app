@@ -35,7 +35,7 @@ const MyProfileUpdateModal = ({
     })
       .then((res) => res.json())
       .then((result) => {
-        fetch(`https://pure-mountain-19265.herokuapp.com/profile/${profile}`, {
+        fetch(`https://electric-bulders-server.vercel.app/profile/${profile}`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
